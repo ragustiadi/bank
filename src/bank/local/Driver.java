@@ -40,21 +40,29 @@ public class Driver implements bank.BankDriver {
 
 		@Override
 		public Set<String> getAccountNumbers() {
-			System.out.println("Bank.getAccountNumbers has to be implemented");
-			return new HashSet<String>(); // TODO has to be replaced
+			Set<String> actAcc = new HashSet<String>();
+			for (String s : accounts.keySet()) {
+				if (accounts.get(s).isActive())
+					actAcc.add(s);
+			}
+			return actAcc;
 		}
 
 		@Override
 		public String createAccount(String owner) {
-			// TODO has to be implemented
-			System.out.println("Bank.createAccount has to be implemented");
-			return null;
+			String number = getNewAccNumber();
+			accounts.put(number, new Account(number, owner));
+			System.out.println(number);
+			return number;
 		}
 
 		@Override
 		public boolean closeAccount(String number) {
-			// TODO has to be implemented
-			System.out.println("Bank.closeAccount has to be implemented");
+			if (accounts.containsKey(number) && accounts.get(number).isActive()
+					&& accounts.get(number).getBalance() == 0) {
+				accounts.get(number).active = false;
+				return true;
+			}
 			return false;
 		}
 
@@ -66,10 +74,21 @@ public class Driver implements bank.BankDriver {
 		@Override
 		public void transfer(bank.Account from, bank.Account to, double amount)
 				throws IOException, InactiveException, OverdrawException {
-			// TODO has to be implemented
-			System.out.println("Bank.transfer has to be implemented");
+			if (from != null && to != null) {
+				from.withdraw(amount);
+				to.deposit(amount);
+			} else
+				throw new IOException("The account does not exist.");
 		}
 
+		private String getNewAccNumber() {
+			String ret = Long.toHexString(System.currentTimeMillis())
+					.toUpperCase();
+			while (accounts.containsKey(ret))
+				ret = Long.toHexString(System.currentTimeMillis())
+						.toUpperCase();
+			return ret;
+		}
 	}
 
 	static class Account implements bank.Account {
@@ -78,9 +97,9 @@ public class Driver implements bank.BankDriver {
 		private double balance;
 		private boolean active = true;
 
-		Account(String owner) {
+		Account(String number, String owner) {
 			this.owner = owner;
-			// TODO account number has to be set
+			this.number = number;
 		}
 
 		@Override
@@ -105,15 +124,27 @@ public class Driver implements bank.BankDriver {
 
 		@Override
 		public void deposit(double amount) throws InactiveException {
-			// TODO has to be implemented
-			System.out.println("Account.deposit has to be implemented");
+			if (active)
+				if (amount >= 0)
+					balance += amount;
+				else
+					throw new IllegalArgumentException("Amount is negative.");
+			else
+				throw new InactiveException("Account not active.");
 		}
 
 		@Override
 		public void withdraw(double amount) throws InactiveException,
 				OverdrawException {
-			// TODO has to be implemented
-			System.out.println("Account.withdraw has to be implemented");
+			if (amount < 0)
+				throw new IllegalArgumentException("Amount is negative.");
+			if (active)
+				if (balance >= amount)
+					balance -= amount;
+				else
+					throw new OverdrawException("Not sufficient funds.");
+			else
+				throw new InactiveException("Account not active.");
 		}
 
 	}

@@ -15,37 +15,36 @@ import bank.Bank;
 import bank.BankDriver;
 
 /*
-* This class implements a dummy driver which can be used to start and test
-* the GUI application. With this implementation no new accounts can be created
-* nor can accounts be removed. The implementation provides one account which
-* supports the deposit and withdraw operations.
-*
-* @see BankDriver
-*/
-
+ * This class implements a dummy driver which can be used to start and test
+ * the GUI application. With this implementation no new accounts can be created
+ * nor can accounts be removed. The implementation provides one account which
+ * supports the deposit and withdraw operations.
+ *
+ * @see BankDriver
+ */
 
 public class Driver implements BankDriver {
 	private Bank bank = null;
 
 	@Override
-	public void connect(String[] args){
+	public void connect(String[] args) {
 		bank = new DummyBank();
 		System.out.println("connected...");
 	}
-	
+
 	@Override
-	public void disconnect(){
+	public void disconnect() {
 		bank = null;
 		System.out.println("disconnected...");
 	}
-	
+
 	@Override
-	public bank.Bank getBank(){
+	public bank.Bank getBank() {
 		return bank;
 	}
 
 	/** This Dummy-Bank only contains one account. */
-	class DummyBank implements Bank  {
+	class DummyBank implements Bank {
 		private final Map<String, Account> accounts = new HashMap<String, Account>();
 		{
 			DummyAccount acc = new DummyAccount();
@@ -63,15 +62,15 @@ public class Driver implements BankDriver {
 		}
 
 		@Override
-		public Set<String> getAccountNumbers(){
+		public Set<String> getAccountNumbers() {
 			return accounts.keySet();
 		}
-		
+
 		@Override
-		public Account  getAccount(String number){
+		public Account getAccount(String number) {
 			return accounts.get(number);
 		}
-		
+
 		@Override
 		public void transfer(Account a, Account b, double amount) {
 			// since this bank only supports one account, transfer always transfers amount
@@ -83,7 +82,6 @@ public class Driver implements BankDriver {
 		private String owner = "Dagobert Duck";
 		private String number = "DD-33-4499";
 		private double balance;
-
 
 		@Override
 		public String getNumber() {

@@ -6,10 +6,8 @@
 package bank;
 
 /**
- * The OverdrawException is thrown when a bank transaction is called which would
- * overdraw an account, i.e. which tries to withdraw more money from an account
- * than its balance. This exception is declared on the methods withdraw and
- * transfer.
+ * The OverdrawException is thrown when a bank transaction is called which would overdraw an account, i.e. which tries to withdraw more money from an account than its balance. This exception is
+ * declared on the methods withdraw and transfer.
  * 
  * @see Account
  * @see Bank

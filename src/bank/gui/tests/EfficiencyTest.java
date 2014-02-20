@@ -28,7 +28,8 @@ public class EfficiencyTest implements BankTest {
 	}
 
 	@Override
-	public void runTests(JFrame context, Bank bank, String currentAccountNumber) throws Exception {
+	public void runTests(JFrame context, Bank bank, String currentAccountNumber)
+			throws Exception {
 		final Account acc = bank.getAccount(currentAccountNumber);
 
 		String msg;

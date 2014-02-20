@@ -12,18 +12,14 @@ import javax.swing.SwingUtilities;
 import bank.gui.BankGUI;
 
 /**
- * Class Client is used to start the Client side of the bank application. As a
- * runtime parameter the name of the class which implements the
- * <code>BankDriver</code> interface has to be specified. This class is then
- * loaded and used to access the bank. This class needs a public constructor.
+ * Class Client is used to start the Client side of the bank application. As a runtime parameter the name of the class which implements the <code>BankDriver</code> interface has to be specified. This
+ * class is then loaded and used to access the bank. This class needs a public constructor.
  * 
  * <pre>
  * Usage: java bank.Client &lt;classname&gt;
  * </pre>
  * 
- * E.g. start the application with one of the following commands. The additional
- * runtime arguments are passed to the connect method of the BankDriver
- * implementation.
+ * E.g. start the application with one of the following commands. The additional runtime arguments are passed to the connect method of the BankDriver implementation.
  * 
  * <pre>
  * java bank.Client bank.local.Driver
@@ -35,9 +31,10 @@ import bank.gui.BankGUI;
  * @version 3.0
  */
 public final class Client {
-	
+
 	/** Utility class which is only used to start the application */
-	private Client() { }
+	private Client() {
+	}
 
 	public static void main(String args[]) {
 		if (args.length < 1) {
@@ -78,12 +75,13 @@ public final class Client {
 		}
 
 		final BankGUI app = new BankGUI(server);
-		SwingUtilities.invokeLater(new Runnable(){
+		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				app.pack();
 				app.setVisible(true);
-			}});
+			}
+		});
 	}
 
 }
