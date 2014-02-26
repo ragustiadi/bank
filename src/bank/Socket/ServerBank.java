@@ -10,6 +10,10 @@ import bank.Bank;
 import bank.InactiveException;
 import bank.OverdrawException;
 
+/*
+ * Die Bank, die sich auf dem Server befindet. Sie speichert alle Accounts und
+ * bearbeitet die Anfragen von den Clients.
+ */
 public class ServerBank implements Bank {
 
 	private static final Map<String, ServerAccount> accounts = new HashMap<String, ServerAccount>();
@@ -51,7 +55,6 @@ public class ServerBank implements Bank {
 		} else {
 			throw new IOException("The account does not exist.");
 		}
-
 	}
 
 	private String getNewAccNumber() {
@@ -62,6 +65,10 @@ public class ServerBank implements Bank {
 		return number;
 	}
 
+	/*
+	 * Die Instanzen des ServerAccounts werden in der ServerBank gespeichert.
+	 * Sie besitzen alle Infos und die Logik um anfragen Bearbeiten zu können.
+	 */
 	class ServerAccount implements bank.Account {
 
 		private String number;
@@ -123,6 +130,5 @@ public class ServerBank implements Bank {
 		public double getBalance() throws IOException {
 			return balance;
 		}
-
 	}
 }

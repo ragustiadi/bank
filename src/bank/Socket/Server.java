@@ -6,6 +6,10 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/*
+ * Klasse Server startet auf der Serverseite und startet für jeden neuen Client
+ * einen neuen Thread.
+ */
 public class Server implements Runnable {
 
 	static ServerSocket socket = null;
@@ -72,6 +76,5 @@ public class Server implements Runnable {
 		System.out.println("Thread for " + connection.getInetAddress()
 				+ " terminated");
 		numOfConnections--;
-
 	}
 }

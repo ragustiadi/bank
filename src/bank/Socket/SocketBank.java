@@ -17,6 +17,11 @@ import bank.commands.GetAccount;
 import bank.commands.GetAccountNumbers;
 import bank.commands.Transfer;
 
+/*
+ * Schnittstelle den SocketDriver um mit dem Server zu kommunizieren. Die
+ * SocketBank speichert selber keine Daten, sondern sendet Anfragen (Commands)
+ * an den Server.
+ */
 public class SocketBank implements bank.Bank {
 
 	private SocketDriver driver = null;
@@ -99,6 +104,11 @@ public class SocketBank implements bank.Bank {
 
 	}
 
+	/*
+	 * LocalAccount ist ein DummyAccount, der nur die Nummer kennt. Die
+	 * restlichen Daten werden vom Server angefragt. Die Nummer dient nur der
+	 * eindeutigen Indentifikation des Accounts auf dem Server.
+	 */
 	class LocalAccount implements bank.Account {
 
 		private String number;
