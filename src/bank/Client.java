@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2000-2014 Fachhochschule Nordwestschweiz (FHNW)
- * All Rights Reserved. 
+ * All Rights Reserved.
  */
 
 package bank;
@@ -12,14 +12,19 @@ import javax.swing.SwingUtilities;
 import bank.gui.BankGUI;
 
 /**
- * Class Client is used to start the Client side of the bank application. As a runtime parameter the name of the class which implements the <code>BankDriver</code> interface has to be specified. This
- * class is then loaded and used to access the bank. This class needs a public constructor.
+ * Class Client is used to start the Client side of the bank application. As a
+ * runtime parameter the name of the class which implements the
+ * <code>BankDriver</code> interface has to be specified. This
+ * class is then loaded and used to access the bank. This class needs a public
+ * constructor.
  * 
  * <pre>
  * Usage: java bank.Client &lt;classname&gt;
  * </pre>
  * 
- * E.g. start the application with one of the following commands. The additional runtime arguments are passed to the connect method of the BankDriver implementation.
+ * E.g. start the application with one of the following commands. The additional
+ * runtime arguments are passed to the connect method of the BankDriver
+ * implementation.
  * 
  * <pre>
  * java bank.Client bank.local.Driver
@@ -83,5 +88,4 @@ public final class Client {
 			}
 		});
 	}
-
 }

@@ -2,6 +2,8 @@
 <project name="bank" default="compile" basedir=".">
 
 	<property file="build.properties" />
+	<property name="tomcat.home" value="/Users/rt/Documents/apache-tomcat-8.0.3"/>
+	
 	
 	<path id="bank.class.path">
 <!--
@@ -23,9 +25,12 @@
 	</target>
 
 	<target name="compile" depends="init" description="compiles all source code.">
-		<javac srcdir="${src.dir}" destdir="${bin.dir}"
+		<javac srcdir="${src.dir}/bank/http" destdir="${bin.dir}"
 			classpathref="bank.class.path"
+			debug="on"
 			includeantruntime="false"
+			deprecation="on"
+			optimize="off"
 		/>
 	</target>
 
@@ -50,6 +55,27 @@
 			<arg value="1234"/>
 			<classpath refid="bank.class.path"/>
 		</java>
+	</target>
+	
+	
+	<target name="bank.war" depends="compile">
+		<war warfile="${basedir}/bank.war" needxmlfile="false">
+			<classes dir="${bin.dir}" >
+				<include name="bank/*.class" />
+			</classes>
+			<fileset dir="${basedir}/res/bank">
+				<include name="*.jsp"/>
+				<include name="*.html"/>
+			</fileset>
+		</war>
+	</target>
+
+	<target name="bank.deploy" depends="bank.war">
+		<copy file="${basedir}/bank.war" todir="${tomcat.home}/webapps"/>
+	</target>
+
+	<target name="bank.undeploy">
+		<delete file="${tomcat.home}/webapps/bank.war"/>
 	</target>
 	
 </project>
