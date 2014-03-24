@@ -9,6 +9,12 @@ import bank.Account;
 import bank.InactiveException;
 import bank.OverdrawException;
 
+/*
+ * Implementierung der Bankbefehle. Die befehle vom Client werden somit an die
+ * ServerBank weitergeleitet.
+ * Die IllegalArgumentException von der ServerBank wird angefangen und mit
+ * CustomException ersetzt.
+ */
 @WebService
 public class BankServiceImpl implements BankService {
 
@@ -97,7 +103,7 @@ public class BankServiceImpl implements BankService {
 	}
 
 	class CustomException extends Exception {
-		// Markierexception für IllegalargumentException
+		// Markier-exception für IllegalargumentException
 		public CustomException(String message) {
 			super(message);
 		}

@@ -5,4 +5,6 @@ encoding//src/bank/Socket/SocketDriver.java=UTF-8
 encoding//src/bank/commands/GetAccount.java=UTF-8
 encoding//src/bank/common/ServerBank.java=UTF-8
 encoding//src/bank/gui/tests/FunctionalityTest.java=UTF-8
+encoding//src/bank/soap/BankService.java=UTF-8
 encoding//src/bank/soap/BankServiceImpl.java=UTF-8
+encoding//src/bank/soap/SoapDriver.java=UTF-8

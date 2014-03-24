@@ -14,6 +14,9 @@ import bank.InactiveException;
 import bank.OverdrawException;
 import bank.soap.BankServiceImpl.CustomException;
 
+/*
+ * Interface für die Implementierung der Bankbefehle
+ */
 @WebService
 public interface BankService {
 

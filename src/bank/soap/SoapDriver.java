@@ -17,6 +17,9 @@ import bank.soap.client.IOException_Exception;
 import bank.soap.client.InactiveException_Exception;
 import bank.soap.client.OverdrawException_Exception;
 
+/*
+ * Erstellt die Verbindung zum Server
+ */
 @WebService
 public class SoapDriver implements BankDriver {
 
@@ -41,6 +44,11 @@ public class SoapDriver implements BankDriver {
 		return bank;
 	}
 
+	/*
+	 * Ersetzt die Bank für den Client.
+	 * Die CustomException wird abgefangen und stattdessen eine
+	 * IllegalArgumentException geworfen.
+	 */
 	class LocalSoapBank implements bank.Bank {
 
 		bank.soap.client.BankServiceImpl service = null;
@@ -122,6 +130,9 @@ public class SoapDriver implements BankDriver {
 			}
 		}
 
+		/*
+		 * Account als Bestandteil der Bank
+		 */
 		class LocalSoapAccount implements Account {
 
 			String number = "default number";
@@ -196,7 +207,6 @@ public class SoapDriver implements BankDriver {
 					//	e.printStackTrace();
 					throw new IllegalArgumentException(e.getMessage());
 				}
-
 			}
 
 			@Override
@@ -210,8 +220,6 @@ public class SoapDriver implements BankDriver {
 				}
 				return response;
 			}
-
 		}
 	}
-
 }
