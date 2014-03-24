@@ -12,8 +12,8 @@ import bank.BankDriver;
 import bank.InactiveException;
 import bank.OverdrawException;
 import bank.soap.client.BankServiceImplService;
+import bank.soap.client.CustomException_Exception;
 import bank.soap.client.IOException_Exception;
-import bank.soap.client.IllegalArgumentException_Exception;
 import bank.soap.client.InactiveException_Exception;
 import bank.soap.client.OverdrawException_Exception;
 
@@ -116,7 +116,7 @@ public class SoapDriver implements BankDriver {
 			} catch (OverdrawException_Exception e) {
 				//	e.printStackTrace();
 				throw new OverdrawException(e.getMessage());
-			} catch (IllegalArgumentException_Exception e) {
+			} catch (CustomException_Exception e) {
 				//	e.printStackTrace();
 				throw new IllegalArgumentException(e.getMessage());
 			}
@@ -170,7 +170,7 @@ public class SoapDriver implements BankDriver {
 				} catch (InactiveException_Exception e) {
 					//	e.printStackTrace();
 					throw new InactiveException(e.getMessage());
-				} catch (IllegalArgumentException_Exception e) {
+				} catch (CustomException_Exception e) {
 					//	e.printStackTrace();
 					throw new IllegalArgumentException(e.getMessage());
 				}
@@ -192,7 +192,7 @@ public class SoapDriver implements BankDriver {
 				} catch (InactiveException_Exception e) {
 					//	e.printStackTrace();
 					throw new InactiveException(e.getMessage());
-				} catch (IllegalArgumentException_Exception e) {
+				} catch (CustomException_Exception e) {
 					//	e.printStackTrace();
 					throw new IllegalArgumentException(e.getMessage());
 				}

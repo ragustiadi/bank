@@ -33,8 +33,9 @@ public class ObjectFactory {
     private final static QName _GetOwner_QNAME = new QName("http://soap.bank/", "getOwner");
     private final static QName _CloseAccountResponse_QNAME = new QName("http://soap.bank/", "closeAccountResponse");
     private final static QName _GetBalanceResponse_QNAME = new QName("http://soap.bank/", "getBalanceResponse");
-    private final static QName _IOException_QNAME = new QName("http://soap.bank/", "IOException");
     private final static QName _GetAccountNumbersResponse_QNAME = new QName("http://soap.bank/", "getAccountNumbersResponse");
+    private final static QName _CustomException_QNAME = new QName("http://soap.bank/", "CustomException");
+    private final static QName _IOException_QNAME = new QName("http://soap.bank/", "IOException");
     private final static QName _Deposit_QNAME = new QName("http://soap.bank/", "deposit");
     private final static QName _CreateAccountResponse_QNAME = new QName("http://soap.bank/", "createAccountResponse");
     private final static QName _OverdrawException_QNAME = new QName("http://soap.bank/", "OverdrawException");
@@ -88,19 +89,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IOException }
-     * 
-     */
-    public IOException createIOException() {
-        return new IOException();
-    }
-
-    /**
      * Create an instance of {@link GetAccountNumbersResponse }
      * 
      */
     public GetAccountNumbersResponse createGetAccountNumbersResponse() {
         return new GetAccountNumbersResponse();
+    }
+
+    /**
+     * Create an instance of {@link CustomException }
+     * 
+     */
+    public CustomException createCustomException() {
+        return new CustomException();
+    }
+
+    /**
+     * Create an instance of {@link IOException }
+     * 
+     */
+    public IOException createIOException() {
+        return new IOException();
     }
 
     /**
@@ -321,21 +330,30 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IOException }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://soap.bank/", name = "IOException")
-    public JAXBElement<IOException> createIOException(IOException value) {
-        return new JAXBElement<IOException>(_IOException_QNAME, IOException.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetAccountNumbersResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://soap.bank/", name = "getAccountNumbersResponse")
     public JAXBElement<GetAccountNumbersResponse> createGetAccountNumbersResponse(GetAccountNumbersResponse value) {
         return new JAXBElement<GetAccountNumbersResponse>(_GetAccountNumbersResponse_QNAME, GetAccountNumbersResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CustomException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://soap.bank/", name = "CustomException")
+    public JAXBElement<CustomException> createCustomException(CustomException value) {
+        return new JAXBElement<CustomException>(_CustomException_QNAME, CustomException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link IOException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://soap.bank/", name = "IOException")
+    public JAXBElement<IOException> createIOException(IOException value) {
+        return new JAXBElement<IOException>(_IOException_QNAME, IOException.class, null, value);
     }
 
     /**
