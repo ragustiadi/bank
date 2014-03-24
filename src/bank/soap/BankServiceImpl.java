@@ -45,8 +45,13 @@ public class BankServiceImpl implements BankService {
 	public void transfer(@WebParam(name = "a") String a,
 			@WebParam(name = "b") String b,
 			@WebParam(name = "amount") double amount) throws IOException,
-			IllegalArgumentException, OverdrawException, InactiveException {
-		bank.transfer(bank.getAccount(a), bank.getAccount(b), amount);
+			IllegalArgumentException, OverdrawException, InactiveException,
+			CustomException {
+		try {
+			bank.transfer(bank.getAccount(a), bank.getAccount(b), amount);
+		} catch (IllegalArgumentException e) {
+			throw new CustomException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -64,15 +69,25 @@ public class BankServiceImpl implements BankService {
 	@Override
 	public void deposit(@WebParam(name = "number") String number,
 			@WebParam(name = "amount") double amount) throws IOException,
-			IllegalArgumentException, InactiveException {
-		bank.getAccount(number).deposit(amount);
+			IllegalArgumentException, InactiveException, CustomException {
+		try {
+			bank.getAccount(number).deposit(amount);
+		} catch (IllegalArgumentException e) {
+			throw new CustomException(e.getMessage());
+		}
 	}
 
 	@Override
 	public void withdraw(@WebParam(name = "number") String number,
 			@WebParam(name = "amount") double amount) throws IOException,
-			IllegalArgumentException, OverdrawException, InactiveException {
-		bank.getAccount(number).withdraw(amount);
+			IllegalArgumentException, OverdrawException, InactiveException,
+			CustomException {
+		try {
+			bank.getAccount(number).withdraw(amount);
+		} catch (IllegalArgumentException e) {
+			throw new CustomException(e.getMessage());
+		}
+
 	}
 
 	@Override
@@ -81,4 +96,10 @@ public class BankServiceImpl implements BankService {
 		return bank.getAccount(number).getBalance();
 	}
 
+	class CustomException extends Exception {
+		// Markierexception für IllegalargumentException
+		public CustomException(String message) {
+			super(message);
+		}
+	}
 }

@@ -51,7 +51,6 @@ public class SoapDriver implements BankDriver {
 
 		@Override
 		public String createAccount(String owner) throws IOException {
-			System.out.println("Driver: createAccount");
 			String response = null;
 			try {
 				response = service.createAccount(owner);
@@ -64,7 +63,6 @@ public class SoapDriver implements BankDriver {
 
 		@Override
 		public boolean closeAccount(String number) throws IOException {
-			System.out.println("Driver: closeAccount");
 			boolean response = false;
 			try {
 				response = service.closeAccount(number);
@@ -77,7 +75,6 @@ public class SoapDriver implements BankDriver {
 
 		@Override
 		public Set<String> getAccountNumbers() throws IOException {
-			System.out.println("Driver: getAccountNumbers");
 			Set<String> response = new HashSet<String>();
 			try {
 				for (Object acc : service.getAccountNumbers()) {
@@ -92,7 +89,6 @@ public class SoapDriver implements BankDriver {
 
 		@Override
 		public Account getAccount(String number) throws IOException {
-			System.out.println("Driver: getAccount");
 			Account response = null;
 			try {
 				String temp = service.getAccount(number);
@@ -109,7 +105,6 @@ public class SoapDriver implements BankDriver {
 		public void transfer(Account a, Account b, double amount)
 				throws IOException, IllegalArgumentException,
 				OverdrawException, InactiveException {
-			System.out.println("Driver: transfer");
 			try {
 				service.transfer(a.getNumber(), b.getNumber(), amount);
 			} catch (IOException_Exception e) {
