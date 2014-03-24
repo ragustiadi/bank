@@ -7,19 +7,16 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "transfer", namespace = "http://soap.bank/")
+@XmlRootElement(name = "withdraw", namespace = "http://soap.bank/")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "transfer", namespace = "http://soap.bank/", propOrder = {
-    "a",
-    "b",
+@XmlType(name = "withdraw", namespace = "http://soap.bank/", propOrder = {
+    "number",
     "amount"
 })
-public class Transfer {
+public class Withdraw {
 
-    @XmlElement(name = "a", namespace = "")
-    private String a;
-    @XmlElement(name = "b", namespace = "")
-    private String b;
+    @XmlElement(name = "number", namespace = "")
+    private String number;
     @XmlElement(name = "amount", namespace = "")
     private double amount;
 
@@ -28,35 +25,17 @@ public class Transfer {
      * @return
      *     returns String
      */
-    public String getA() {
-        return this.a;
+    public String getNumber() {
+        return this.number;
     }
 
     /**
      * 
-     * @param a
-     *     the value for the a property
+     * @param number
+     *     the value for the number property
      */
-    public void setA(String a) {
-        this.a = a;
-    }
-
-    /**
-     * 
-     * @return
-     *     returns String
-     */
-    public String getB() {
-        return this.b;
-    }
-
-    /**
-     * 
-     * @param b
-     *     the value for the b property
-     */
-    public void setB(String b) {
-        this.b = b;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     /**

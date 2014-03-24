@@ -7,10 +7,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "closeAccount", namespace = "http://soap.bank/")
+@XmlRootElement(name = "getBalance", namespace = "http://soap.bank/")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "closeAccount", namespace = "http://soap.bank/")
-public class CloseAccount {
+@XmlType(name = "getBalance", namespace = "http://soap.bank/")
+public class GetBalance {
 
     @XmlElement(name = "number", namespace = "")
     private String number;

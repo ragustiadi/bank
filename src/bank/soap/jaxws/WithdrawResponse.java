@@ -6,10 +6,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "disconnect", namespace = "http://soap.bank/")
+@XmlRootElement(name = "withdrawResponse", namespace = "http://soap.bank/")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "disconnect", namespace = "http://soap.bank/")
-public class Disconnect {
+@XmlType(name = "withdrawResponse", namespace = "http://soap.bank/")
+public class WithdrawResponse {
 
 
 }

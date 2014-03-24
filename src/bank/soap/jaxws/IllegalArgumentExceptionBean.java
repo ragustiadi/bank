@@ -11,10 +11,10 @@ import javax.xml.bind.annotation.XmlType;
  * Generated source version: 2.2.4
  * 
  */
-@XmlRootElement(name = "InactiveException", namespace = "http://soap.bank/")
+@XmlRootElement(name = "IllegalArgumentException", namespace = "http://soap.bank/")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "InactiveException", namespace = "http://soap.bank/")
-public class InactiveExceptionBean {
+@XmlType(name = "IllegalArgumentException", namespace = "http://soap.bank/")
+public class IllegalArgumentExceptionBean {
 
 	private String message;
 

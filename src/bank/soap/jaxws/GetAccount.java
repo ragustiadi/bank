@@ -12,25 +12,25 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "getAccount", namespace = "http://soap.bank/")
 public class GetAccount {
 
-    @XmlElement(name = "arg0", namespace = "")
-    private String arg0;
+    @XmlElement(name = "number", namespace = "")
+    private String number;
 
     /**
      * 
      * @return
      *     returns String
      */
-    public String getArg0() {
-        return this.arg0;
+    public String getNumber() {
+        return this.number;
     }
 
     /**
      * 
-     * @param arg0
-     *     the value for the arg0 property
+     * @param number
+     *     the value for the number property
      */
-    public void setArg0(String arg0) {
-        this.arg0 = arg0;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
 }

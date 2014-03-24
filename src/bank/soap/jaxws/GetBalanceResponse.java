@@ -7,20 +7,20 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getAccountResponse", namespace = "http://soap.bank/")
+@XmlRootElement(name = "getBalanceResponse", namespace = "http://soap.bank/")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getAccountResponse", namespace = "http://soap.bank/")
-public class GetAccountResponse {
+@XmlType(name = "getBalanceResponse", namespace = "http://soap.bank/")
+public class GetBalanceResponse {
 
     @XmlElement(name = "return", namespace = "")
-    private String _return;
+    private double _return;
 
     /**
      * 
      * @return
-     *     returns String
+     *     returns double
      */
-    public String getReturn() {
+    public double getReturn() {
         return this._return;
     }
 
@@ -29,7 +29,7 @@ public class GetAccountResponse {
      * @param _return
      *     the value for the _return property
      */
-    public void setReturn(String _return) {
+    public void setReturn(double _return) {
         this._return = _return;
     }
 

@@ -1,8 +1,7 @@
 eclipse.preferences.version=1
-encoding//src/bank/HTML/HTMLDriver.java=UTF-8
 encoding//src/bank/Socket/Server.java=UTF-8
 encoding//src/bank/Socket/ServerBank.java=UTF-8
 encoding//src/bank/Socket/SocketDriver.java=UTF-8
 encoding//src/bank/commands/GetAccount.java=UTF-8
+encoding//src/bank/common/ServerBank.java=UTF-8
 encoding//src/bank/gui/tests/FunctionalityTest.java=UTF-8
-encoding//src/bank/http/HttpDriver.java=UTF-8
