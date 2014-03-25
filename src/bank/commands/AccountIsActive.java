@@ -8,7 +8,6 @@ import bank.Bank;
 
 public class AccountIsActive implements Command, Serializable {
 
-	private static final long serialVersionUID = -2791749733067769285L;
 	private String number;
 
 	public AccountIsActive(String num) {

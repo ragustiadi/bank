@@ -8,7 +8,6 @@ import bank.Bank;
 
 public class Transfer implements Command, Serializable {
 
-	private static final long serialVersionUID = 3099315085690469923L;
 	private String fromNumber;
 	private String toNumber;
 	private double amount;

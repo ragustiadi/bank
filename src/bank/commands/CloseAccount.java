@@ -8,7 +8,6 @@ import bank.Bank;
 
 public class CloseAccount implements Command, Serializable {
 
-	private static final long serialVersionUID = -5119490308118760712L;
 	private String number;
 
 	public CloseAccount(String num) {

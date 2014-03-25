@@ -8,7 +8,6 @@ import bank.Bank;
 
 public class AccountWithdraw implements Command, Serializable {
 
-	private static final long serialVersionUID = -7881429959569323351L;
 	private String number;
 	private double amount;
 

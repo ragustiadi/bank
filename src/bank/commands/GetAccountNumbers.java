@@ -9,8 +9,6 @@ import bank.Bank;
 
 public class GetAccountNumbers implements Command, Serializable {
 
-	private static final long serialVersionUID = -1409329087260599897L;
-
 	@Override
 	public void execute(Bank bank, ObjectOutputStream dataOut)
 			throws IOException {

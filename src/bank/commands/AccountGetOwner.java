@@ -8,7 +8,6 @@ import bank.Bank;
 
 public class AccountGetOwner implements Command, Serializable {
 
-	private static final long serialVersionUID = 1987643040240267322L;
 	private String number;
 
 	public AccountGetOwner(String num) {

@@ -8,7 +8,6 @@ import bank.Bank;
 
 public class AccountDeposit implements Command, Serializable {
 
-	private static final long serialVersionUID = -2601470840227021751L;
 	private String number;
 	private double amount;
 

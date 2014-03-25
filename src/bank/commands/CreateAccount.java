@@ -8,7 +8,6 @@ import bank.Bank;
 
 public class CreateAccount implements Command, Serializable {
 
-	private static final long serialVersionUID = 7654565592734721896L;
 	private String owner = null;
 
 	public CreateAccount(String o) {

@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 public class GetAccount implements Command, Serializable {
 
-	private static final long serialVersionUID = 8463345407699601960L;
 	private String number = null;
 
 	public GetAccount(String n) {
