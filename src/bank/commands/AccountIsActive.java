@@ -16,7 +16,7 @@ public class AccountIsActive implements Command, Serializable {
 	}
 
 	@Override
-	public synchronized void execute(Bank bank, ObjectOutputStream dataOut)
+	public void execute(Bank bank, ObjectOutputStream dataOut)
 			throws IOException {
 		boolean active = bank.getAccount(number).isActive();
 		try {

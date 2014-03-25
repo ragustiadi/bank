@@ -13,7 +13,7 @@ public class GetAccount implements Command, Serializable {
 		number = n;
 	}
 
-	public synchronized void execute(bank.Bank bank, ObjectOutputStream dataOut)
+	public void execute(bank.Bank bank, ObjectOutputStream dataOut)
 			throws IOException {
 		try {
 			bank.Account acc = bank.getAccount(number);

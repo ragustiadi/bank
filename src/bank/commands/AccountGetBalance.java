@@ -16,7 +16,7 @@ public class AccountGetBalance implements Command, Serializable {
 	}
 
 	@Override
-	public synchronized void execute(Bank bank, ObjectOutputStream dataOut)
+	public void execute(Bank bank, ObjectOutputStream dataOut)
 			throws IOException {
 		double balance = bank.getAccount(number).getBalance();
 		try {

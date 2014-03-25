@@ -18,7 +18,7 @@ public class AccountWithdraw implements Command, Serializable {
 	}
 
 	@Override
-	public synchronized void execute(Bank bank, ObjectOutputStream dataOut)
+	public void execute(Bank bank, ObjectOutputStream dataOut)
 			throws IOException {
 		try {
 			bank.getAccount(number).withdraw(amount);

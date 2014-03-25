@@ -1,4 +1,4 @@
-package bank.Socket;
+package bank.socket;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -6,20 +6,22 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import bank.Bank;
+
 /*
- * Klasse Server startet auf der Serverseite und startet für jeden neuen Client
+ * Klasse Server startet auf der Serverseite und startet f??r jeden neuen Client
  * einen neuen Thread.
  */
-public class Server implements Runnable {
+public class SocketServer implements Runnable {
 
 	static ServerSocket socket = null;
 	Socket connection = null;
-	static ServerBank bank = new ServerBank();
+	static Bank bank = new bank.common.ServerBank();
 	ObjectInputStream dataIn = null;
 	ObjectOutputStream dataOut = null;
 	static int numOfConnections = 0;
 
-	public Server(Socket s) {
+	public SocketServer(Socket s) {
 		connection = s;
 		try {
 			dataOut = new ObjectOutputStream(connection.getOutputStream());
@@ -39,7 +41,7 @@ public class Server implements Runnable {
 					+ port);
 			while (true) {
 				Socket connection = socket.accept();
-				Thread t = new Thread(new Server(connection));
+				Thread t = new Thread(new SocketServer(connection));
 				t.start();
 				numOfConnections++;
 				System.out.println("Number of clients: " + numOfConnections);
@@ -59,7 +61,7 @@ public class Server implements Runnable {
 				if (cmd == null)
 					connection.close();
 				else
-					cmd.execute(bank, dataOut);
+					cmd.execute(bank, dataOut); // bessere Lösung: run schickt daten selber und übergibt das dataOut nich der Command
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

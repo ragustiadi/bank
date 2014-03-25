@@ -1,4 +1,4 @@
-package bank.Socket;
+package bank.socket;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -8,7 +8,7 @@ import java.net.Socket;
 import bank.Bank;
 
 /*
- * Klasse SocketDriver ist verantwortlich für die Kommunikation auf der Seite
+ * Klasse SocketDriver ist verantwortlich f??r die Kommunikation auf der Seite
  * des Clients.
  */
 public class SocketDriver implements bank.BankDriver {
@@ -19,16 +19,18 @@ public class SocketDriver implements bank.BankDriver {
 	ObjectOutputStream dataOut = null;
 
 	public void connect(String[] args) throws IOException {
-		if (args.length < 2)
-			System.out.println("Please provide host IP-Address and port.");
+		int port = 6789; // default port
+		if (args.length > 1)
+			port = Integer.parseInt(args[1]);
 		else {
-			connection = new Socket(args[0], Integer.parseInt(args[1]));
-			System.out.println("Connection to " + connection.getInetAddress()
-					+ " established on port " + connection.getLocalPort());
-			dataIn = new ObjectInputStream(connection.getInputStream());
-			dataOut = new ObjectOutputStream(connection.getOutputStream());
-			bank = new SocketBank(this);
+			System.out.println("No port specified. Using default port " + port);
 		}
+		connection = new Socket(args[0], port);
+		System.out.println("Connection to " + connection.getInetAddress()
+				+ " established on port " + connection.getLocalPort());
+		dataIn = new ObjectInputStream(connection.getInputStream());
+		dataOut = new ObjectOutputStream(connection.getOutputStream());
+		bank = new SocketBank(this);
 	}
 
 	public void disconnect() throws IOException {

@@ -12,7 +12,7 @@ public class GetAccountNumbers implements Command, Serializable {
 	private static final long serialVersionUID = -1409329087260599897L;
 
 	@Override
-	public synchronized void execute(Bank bank, ObjectOutputStream dataOut)
+	public void execute(Bank bank, ObjectOutputStream dataOut)
 			throws IOException {
 		Set<String> accounts = bank.getAccountNumbers();
 		try {

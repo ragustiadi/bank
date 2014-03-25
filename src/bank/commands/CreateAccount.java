@@ -15,7 +15,7 @@ public class CreateAccount implements Command, Serializable {
 		owner = o;
 	}
 
-	public synchronized void execute(Bank bank, ObjectOutputStream dataOut) {
+	public void execute(Bank bank, ObjectOutputStream dataOut) {
 		try {
 			String number = bank.createAccount(owner);
 			dataOut.writeObject(number);

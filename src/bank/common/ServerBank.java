@@ -16,7 +16,7 @@ import bank.OverdrawException;
  */
 public class ServerBank implements Bank {
 
-	private static final Map<String, ServerAccount> accounts = new HashMap<String, ServerAccount>();
+	private final Map<String, ServerAccount> accounts = new HashMap<String, ServerAccount>();
 
 	public String createAccount(String owner) throws IOException {
 		String number = getNewAccNumber();
@@ -71,8 +71,8 @@ public class ServerBank implements Bank {
 	 */
 	class ServerAccount implements bank.Account {
 
-		private String number;
-		private String owner;
+		private final String number;
+		private final String owner;
 		private double balance;
 		private boolean active = true;
 
@@ -82,17 +82,17 @@ public class ServerBank implements Bank {
 		}
 
 		@Override
-		public String getNumber() throws IOException {
+		public String getNumber() {
 			return number;
 		}
 
 		@Override
-		public String getOwner() throws IOException {
+		public String getOwner() {
 			return owner;
 		}
 
 		@Override
-		public boolean isActive() throws IOException {
+		public boolean isActive() {
 			return active;
 		}
 

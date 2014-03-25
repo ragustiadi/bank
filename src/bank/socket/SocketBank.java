@@ -1,4 +1,4 @@
-package bank.Socket;
+package bank.socket;
 
 import java.io.IOException;
 import java.util.Set;
@@ -118,7 +118,7 @@ public class SocketBank implements bank.Bank {
 		}
 
 		@Override
-		public String getNumber() throws IOException {
+		public String getNumber() {
 			return number;
 		}
 

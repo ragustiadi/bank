@@ -16,7 +16,7 @@ public class CloseAccount implements Command, Serializable {
 	}
 
 	@Override
-	public synchronized void execute(Bank bank, ObjectOutputStream dataOut)
+	public void execute(Bank bank, ObjectOutputStream dataOut)
 			throws IOException {
 		boolean success = bank.closeAccount(number);
 		try {
