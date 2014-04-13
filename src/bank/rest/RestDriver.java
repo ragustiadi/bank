@@ -44,15 +44,14 @@ public class RestDriver implements BankDriver {
 
 		@Override
 		public String createAccount(String owner) throws IOException {
-			WebResource resource = client.resource(serverUrl + "/accounts/"
-					+ owner);
-			return resource.put(String.class);
+			WebResource resource = client.resource(serverUrl + "/accounts").queryParam("owner",
+					owner);
+			return resource.post(String.class);
 		}
 
 		@Override
 		public boolean closeAccount(String number) throws IOException {
-			WebResource resource = client.resource(serverUrl + "/accounts/"
-					+ number);
+			WebResource resource = client.resource(serverUrl + "/accounts/" + number);
 			return Boolean.parseBoolean(resource.delete(String.class));
 		}
 
@@ -70,15 +69,18 @@ public class RestDriver implements BankDriver {
 
 		@Override
 		public Account getAccount(String number) throws IOException {
-			return new Account(number);
+			if (number.equals("") || number.contains(" ")) // ungültige Werte für Kontonummern könnten
+				number = "InvalidNumber"; // eigentlich hier abgefangen und nicht weitergeleitet werden
+			Account acc = new Account(number);
+			return acc.getOwner() == null ? null : acc;
 		}
 
 		@Override
-		public void transfer(bank.Account a, bank.Account b, double amount)
-				throws IOException, IllegalArgumentException,
-				OverdrawException, InactiveException {
-			WebResource resource = client.resource(serverUrl + "/accounts/"
-					+ a.getNumber() + "&" + b.getNumber() + "&" + amount);
+		public void transfer(bank.Account a, bank.Account b, double amount) throws IOException,
+				IllegalArgumentException, OverdrawException, InactiveException {
+			WebResource resource = client.resource(serverUrl + "/transfer")
+					.queryParam("from", a.getNumber()).queryParam("to", b.getNumber())
+					.queryParam("amount", Double.toString(amount));
 			String response = resource.post(String.class);
 			switch (response) {
 			case "IllegalArgument":
@@ -107,17 +109,16 @@ public class RestDriver implements BankDriver {
 
 			@Override
 			public String getOwner() throws IOException {
-				WebResource resource = client.resource(serverUrl + "/accounts/"
-						+ number);
+				WebResource resource = client.resource(serverUrl + "/accounts/" + number);
 				String response = resource.get(String.class);
-				return response;
+				return response.equals("null") ? null : response;
 			}
 
 			@Override
 			public boolean isActive() throws IOException {
-				WebResource resource = client.resource(serverUrl + "/accounts/"
-						+ number);
+				WebResource resource = client.resource(serverUrl + "/accounts/" + number);
 				ClientResponse response = resource.head();
+				System.out.println("status: " + response.getStatus());
 				if (response.getStatus() == 200)
 					return true;
 				else
@@ -125,34 +126,43 @@ public class RestDriver implements BankDriver {
 			}
 
 			@Override
-			public void deposit(double amount) throws IOException,
-					IllegalArgumentException, InactiveException {
-				WebResource resource = client.resource(serverUrl + "/accounts/"
-						+ number + "/deposit=" + amount);
+			public void deposit(double amount) throws IOException, IllegalArgumentException,
+					InactiveException {
+				WebResource resource = client.resource(serverUrl + "/accounts/" + number)
+						.queryParam("operation", "deposit")
+						.queryParam("amount", Double.toString(amount));
 				String response = resource.put(String.class);
-				System.out.println(response);
+				switch (response) {
+				case "IllegalArgument":
+					throw new IllegalArgumentException();
+				case "Inactive":
+					throw new InactiveException();
+				}
 			}
 
 			@Override
-			public void withdraw(double amount) throws IOException,
-					IllegalArgumentException, OverdrawException,
-					InactiveException {
-				WebResource resource = client.resource(serverUrl + "/accounts/"
-						+ number + "/withdraw=" + amount);
+			public void withdraw(double amount) throws IOException, IllegalArgumentException,
+					OverdrawException, InactiveException {
+				WebResource resource = client.resource(serverUrl + "/accounts/" + number)
+						.queryParam("operation", "withdraw")
+						.queryParam("amount", Double.toString(amount));
 				String response = resource.put(String.class);
-				System.out.println(response);
+				switch (response) {
+				case "IllegalArgument":
+					throw new IllegalArgumentException();
+				case "Overdraw":
+					throw new OverdrawException();
+				case "Inactive":
+					throw new InactiveException();
+				}
 			}
 
 			@Override
 			public double getBalance() throws IOException {
-				WebResource resource = client.resource(serverUrl + "/accounts/"
-						+ number + "/balance");
-				String response = resource.get(String.class);
-				if (response.equals("IO"))
-					throw new IOException();
+				WebResource resource = client.resource(serverUrl + "/accounts/" + number);
+				String response = resource.post(String.class);
 				return Double.parseDouble(response);
 			}
-
 		}
 	}
 }

@@ -11,7 +11,9 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import bank.Bank;
 import bank.InactiveException;
@@ -29,149 +31,110 @@ public class RestResource {
 		bank = new bank.common.ServerBank();
 	}
 
-	@PUT
-	@Path("/accounts/{owner}")
+	@POST
+	@Path("/accounts")
 	@Produces("text/plain")
-	public Response createAccount(@PathParam("owner") String owner) {
+	public String createAccount(@QueryParam("owner") String owner) throws IOException {
 		System.out.println("Create account for " + owner);
-		try {
-			return Response.ok(bank.createAccount(owner)).build();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return Response.notModified().build();
+		return bank.createAccount(owner);
 	}
 
 	@DELETE
 	@Path("/accounts/{number}")
 	@Produces("text/plain")
-	public Response closeAccount(@PathParam("number") String number) {
+	public String closeAccount(@PathParam("number") String number) throws IOException {
 		System.out.println("close account number " + number);
-		try {
-			if (bank.closeAccount(number))
-				return Response.ok("true").build();
-			else
-				return Response.notModified("false").build();
-		} catch (IOException e) {
-			return Response.notModified("false").build();
-		}
+		return Boolean.toString(bank.closeAccount(number));
 	}
 
 	@GET
 	@Path("/accounts")
 	@Produces("text/plain")
-	public String getAccountNumbers() {
+	public String getAccountNumbers() throws IOException {
 		System.out.println("get all accounts");
-		Set<String> accounts;
-		try {
-			accounts = bank.getAccountNumbers();
-			if (accounts.size() != 0) {
-				StringBuilder sb = new StringBuilder();
-				for (String acc : accounts)
-					sb.append(acc + "\n");
-				sb.deleteCharAt(sb.length() - 1);
-				return sb.toString();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		Set<String> accounts = bank.getAccountNumbers();
+		StringBuilder sb = new StringBuilder();
+		if (accounts.size() != 0) {
+			sb = new StringBuilder();
+			for (String acc : accounts)
+				sb.append(acc + "\n");
+			sb.deleteCharAt(sb.length() - 1);
 		}
-		return "";
+		return sb.toString();
 	}
 
 	@POST
-	@Path("/accounts/{from}&{to}&{amount}")
+	@Path("/transfer")
 	@Produces("text/plain")
-	public Response transfer(@PathParam("from") String from,
-			@PathParam("to") String to, @PathParam("amount") double amount) {
+	public Response transfer(@QueryParam("from") String from, @QueryParam("to") String to,
+			@QueryParam("amount") double amount) throws IOException {
 		System.out.println("transfer from " + from + " to " + to);
 		try {
 			bank.transfer(bank.getAccount(from), bank.getAccount(to), amount);
-			return Response.ok("true").build();
+			return Response.ok().build();
 		} catch (IllegalArgumentException e) {
-			return Response.notModified(e.getMessage()).build();
-		} catch (IOException e) {
-			return Response.notModified(e.getMessage()).build();
+			return Response.ok("IllegalArgument").build();
 		} catch (OverdrawException e) {
-			return Response.notModified(e.getMessage()).build();
+			return Response.ok("Overdraw").build();
 		} catch (InactiveException e) {
-			return Response.notModified(e.getMessage()).build();
+			return Response.ok("Inactive").build();
 		}
 	}
 
 	@GET
 	@Path("/accounts/{number}")
 	@Produces("text/plain")
-	public Response getOwner(@PathParam("number") String number) {
-		System.out.println("get owner for " + number);
-		try {
-			String res = bank.getAccount(number).getOwner();
-			return Response.ok(res).build();
-		} catch (IOException e) {
-			return Response.notModified("IO").build();
-		}
+	public Response getOwner(@PathParam("number") String number) throws IOException {
+		System.out.println("Get owner of " + number);
+		bank.Account acc = bank.getAccount(number);
+		if (acc != null) // wird gebraucht zum Überprüfen, ob die Accountnummer gültig ist
+			return Response.ok(acc.getOwner()).build();
+		else
+			return Response.ok("null").build();
 	}
 
 	@HEAD
 	@Path("/accounts/{number}")
 	@Produces("text/plain")
-	public Response isActive(@PathParam("number") String number) {
+	public Response isActive(@PathParam("number") String number) throws IOException {
 		System.out.println("is " + number + " active");
-		try {
-			return Response.ok(bank.getAccount(number).isActive()).build();
-		} catch (IOException e) {
-			return Response.notModified("IO").build();
-		}
+		boolean temp = bank.getAccount(number).isActive();
+		System.out.println(temp);
+		if (temp)
+			return Response.ok().build();
+		else
+			return Response.notModified().status(Status.GONE).build();
 	}
 
 	@PUT
-	@Path("/accounts/{number}/deposit={amount}")
+	@Path("/accounts/{number}")
 	@Produces("text/plain")
-	public Response deposit(@PathParam("number") String number,
-			@PathParam("amount") String amount) {
-		System.out.println("deposit to " + number);
+	public String accountOperation(@PathParam("number") String number,
+			@QueryParam("operation") String operation, @QueryParam("amount") double amount)
+			throws IOException {
 		try {
-			bank.getAccount(number).deposit(Double.parseDouble(amount));
+			if (operation.equals("deposit")) {
+				System.out.println("deposit to " + number);
+				bank.getAccount(number).deposit(amount);
+			} else if (operation.equals("withdraw")) {
+				System.out.println("withdraw from " + number);
+				bank.getAccount(number).withdraw(amount);
+			}
 		} catch (IllegalArgumentException e) {
-			return Response.notModified("IllegalArgument").build();
-		} catch (IOException e) {
-			return Response.notModified("IO").build();
-		} catch (InactiveException e) {
-			return Response.notModified("Inactive").build();
-		}
-		return Response.ok().build();
-	}
-
-	@PUT
-	@Path("/accounts/{number}/withdraw={amount}")
-	@Produces("text/plain")
-	public Response withdraw(@PathParam("number") String number,
-			@PathParam("amount") String amount) {
-		System.out.println("withdraw from " + number);
-		try {
-			bank.getAccount(number).withdraw(Double.parseDouble(amount));
-		} catch (IllegalArgumentException e) {
-			return Response.notModified("IllegalArgument").build();
-		} catch (IOException e) {
-			return Response.notModified("IO").build();
+			return "IllegalArgument";
 		} catch (OverdrawException e) {
-			return Response.notModified("Overdraw").build();
+			return "Overdraw";
 		} catch (InactiveException e) {
-			return Response.notModified("Inactive").build();
+			return "Inactive";
 		}
-		return Response.ok().build();
+		return "operation completed";
 	}
 
-	@GET
-	@Path("/accounts/{number}/balance")
+	@POST
+	@Path("/accounts/{number}")
 	@Produces("text/plain")
-	public Response getBalance(@PathParam("number") String number) {
+	public String getBalance(@PathParam("number") String number) throws IOException {
 		System.out.println("get balance from " + number);
-		try {
-			return Response.ok(
-					String.valueOf(bank.getAccount(number).getBalance()))
-					.build();
-		} catch (IOException e) {
-			return Response.notModified("IO").build();
-		}
+		return Double.toString(bank.getAccount(number).getBalance());
 	}
 }

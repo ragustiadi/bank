@@ -17,8 +17,7 @@ public class RestServer {
 		final ResourceConfig rc = new ApplicationAdapter(new RestApplication());
 
 		System.out.println("Starting grizzly...");
-		HttpServer httpServer = GrizzlyServerFactory.createHttpServer(baseUri,
-				rc);
+		HttpServer httpServer = GrizzlyServerFactory.createHttpServer(baseUri, rc);
 
 		System.out.println("Grizzly started on URL " + baseUri);
 
