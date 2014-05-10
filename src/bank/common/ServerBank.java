@@ -15,6 +15,7 @@ import bank.OverdrawException;
  * bearbeitet die Anfragen von den Clients.
  */
 public class ServerBank implements Bank {
+	// TODO braucht es remote?
 
 	private final Map<String, ServerAccount> accounts = new HashMap<String, ServerAccount>();
 
@@ -46,9 +47,8 @@ public class ServerBank implements Bank {
 		return accounts.get(number);
 	}
 
-	public void transfer(bank.Account a, bank.Account b, double amount)
-			throws IOException, IllegalArgumentException, OverdrawException,
-			InactiveException {
+	public void transfer(bank.Account a, bank.Account b, double amount) throws IOException,
+			IllegalArgumentException, OverdrawException, InactiveException {
 		if (a != null && b != null) {
 			a.withdraw(amount);
 			b.deposit(amount);
@@ -58,8 +58,7 @@ public class ServerBank implements Bank {
 	}
 
 	private String getNewAccNumber() {
-		String number = Long.toHexString(System.currentTimeMillis())
-				.toUpperCase();
+		String number = Long.toHexString(System.currentTimeMillis()).toUpperCase();
 		while (accounts.containsKey(number))
 			number = Long.toHexString(System.currentTimeMillis()).toUpperCase();
 		return number;
@@ -97,8 +96,8 @@ public class ServerBank implements Bank {
 		}
 
 		@Override
-		public void deposit(double amount) throws IOException,
-				IllegalArgumentException, InactiveException {
+		public void deposit(double amount) throws IOException, IllegalArgumentException,
+				InactiveException {
 			if (active) {
 				if (amount >= 0)
 					balance += amount;
@@ -110,8 +109,8 @@ public class ServerBank implements Bank {
 		}
 
 		@Override
-		public void withdraw(double amount) throws IOException,
-				IllegalArgumentException, OverdrawException, InactiveException {
+		public void withdraw(double amount) throws IOException, IllegalArgumentException,
+				OverdrawException, InactiveException {
 			if (active) {
 				if (amount >= 0) {
 					if (balance >= amount)
