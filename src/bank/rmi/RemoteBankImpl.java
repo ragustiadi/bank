@@ -15,36 +15,34 @@ import bank.OverdrawException;
 
 public class RemoteBankImpl extends UnicastRemoteObject implements RemoteBank {
 
-	bank.Bank bank = null;
-	List<UpdateHandler> clients = new LinkedList<UpdateHandler>();
+	private bank.Bank bank = null;
+	private List<UpdateHandler> clients = new LinkedList<UpdateHandler>();
 
 	public RemoteBankImpl(Bank bank) throws RemoteException {
 		super(8888);
 		this.bank = bank;
 	}
 
-	public void addUpdateHandler(UpdateHandler client) {
+	public void addUpdateHandler(RmiUpdateHandler client) {
 		boolean success = clients.add(client);
 		if (!success)
 			System.err.println("Client already in list");
+		else
+			System.out.println("New client connected");
 	}
 
-	public void removeUpdateHandler(UpdateHandler client) {
+	public void removeUpdateHandler(RmiUpdateHandler client) {
 		boolean success = clients.remove(client);
 		if (!success)
 			System.err.println("Client could not be found");
+		else
+			System.out.println("Client logged off");
 	}
 
-	private void notifyClients(String number) {
-		System.out.println("Notifing clients");
-		for (UpdateHandler client : clients) {
-			try {
-				client.accountChanged(number);
-				System.out.println(client + " notified");
-			} catch (IOException e) {
-				System.err.println("Notification did not complete on " + client);
-			}
-		}
+	private void notifyClients(String number) throws IOException {
+		for (UpdateHandler client : clients)
+			client.accountChanged(number);
+		System.out.println("Clients notified");
 	}
 
 	@Override
@@ -82,13 +80,14 @@ public class RemoteBankImpl extends UnicastRemoteObject implements RemoteBank {
 	@Override
 	public void transfer(Account a, Account b, double amount) throws IOException,
 			IllegalArgumentException, OverdrawException, InactiveException {
-		System.out.println("Transfer " + amount + " from " + a + " to " + b);
+		System.out
+				.println("Transfer " + amount + " from " + a.getNumber() + " to " + b.getNumber());
 		bank.transfer(a, b, amount);
 	}
 
 	public class RemoteAccountImpl extends UnicastRemoteObject implements RemoteAccount {
 
-		Account account = null;
+		private Account account = null;
 
 		public RemoteAccountImpl(Account acc) throws RemoteException {
 			super(8888);
@@ -114,19 +113,19 @@ public class RemoteBankImpl extends UnicastRemoteObject implements RemoteBank {
 		public void deposit(double amount) throws IOException, IllegalArgumentException,
 				InactiveException {
 			account.deposit(amount);
+			notifyClients(account.getNumber());
 		}
 
 		@Override
 		public void withdraw(double amount) throws IOException, IllegalArgumentException,
 				OverdrawException, InactiveException {
 			account.withdraw(amount);
+			notifyClients(account.getNumber());
 		}
 
 		@Override
 		public double getBalance() throws IOException {
 			return account.getBalance();
 		}
-
 	}
-
 }

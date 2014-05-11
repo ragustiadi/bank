@@ -15,7 +15,8 @@ import bank.OverdrawException;
 public class RmiDriver implements BankDriver2, EventListener {
 
 	RemoteBank bank = null;
-	UpdateHandler handler = null;
+
+	RmiUpdateHandler handler = null;
 
 	@Override
 	public void connect(String[] args) throws IOException {
@@ -39,17 +40,8 @@ public class RmiDriver implements BankDriver2, EventListener {
 
 	@Override
 	public void registerUpdateHandler(UpdateHandler handler) throws IOException {
-		this.handler = handler;
+		this.handler = new RmiUpdateHandlerImpl(handler);
 		bank.addUpdateHandler(this.handler);
-		System.out.println("Handler " + handler + " regitered");
-	}
-
-	public void updateAccount(String accountNumber) {
-		try {
-			handler.accountChanged(accountNumber);
-		} catch (IOException e) {
-			System.out.println("Update handler could not me notified");
-		}
 	}
 
 	public class RmiBank implements bank.Bank {
