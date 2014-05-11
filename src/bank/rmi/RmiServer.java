@@ -29,5 +29,4 @@ public class RmiServer implements Remote {
 			System.err.println("Invalid URL");
 		}
 	}
-
 }

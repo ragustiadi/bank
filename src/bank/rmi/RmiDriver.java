@@ -23,8 +23,7 @@ public class RmiDriver implements BankDriver2, EventListener {
 		try {
 			bank = (RemoteBank) Naming.lookup("rmi://localhost/BankService");
 		} catch (NotBoundException e) {
-			System.out.println("Connection not found.");
-			e.printStackTrace();
+			System.err.println("Connection not found.");
 		}
 	}
 

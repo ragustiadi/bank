@@ -19,5 +19,4 @@ public class RmiUpdateHandlerImpl extends UnicastRemoteObject implements RmiUpda
 	public void accountChanged(String id) throws IOException {
 		handler.accountChanged(id);
 	}
-
 }
