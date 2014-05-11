@@ -3,32 +3,65 @@ package bank.rmi;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import bank.Account;
 import bank.Bank;
+import bank.BankDriver2.UpdateHandler;
 import bank.InactiveException;
 import bank.OverdrawException;
 
 public class RemoteBankImpl extends UnicastRemoteObject implements RemoteBank {
 
 	bank.Bank bank = null;
+	List<UpdateHandler> clients = new LinkedList<UpdateHandler>();
 
 	public RemoteBankImpl(Bank bank) throws RemoteException {
 		super(8888);
 		this.bank = bank;
 	}
 
+	public void addUpdateHandler(UpdateHandler client) {
+		boolean success = clients.add(client);
+		if (!success)
+			System.err.println("Client already in list");
+	}
+
+	public void removeUpdateHandler(UpdateHandler client) {
+		boolean success = clients.remove(client);
+		if (!success)
+			System.err.println("Client could not be found");
+	}
+
+	private void notifyClients(String number) {
+		System.out.println("Notifing clients");
+		for (UpdateHandler client : clients) {
+			try {
+				client.accountChanged(number);
+				System.out.println(client + " notified");
+			} catch (IOException e) {
+				System.err.println("Notification did not complete on " + client);
+			}
+		}
+	}
+
 	@Override
 	public String createAccount(String owner) throws IOException {
 		System.out.println("Create account for " + owner);
-		return bank.createAccount(owner);
+		String accNumber = bank.createAccount(owner);
+		notifyClients(accNumber);
+		return accNumber;
 	}
 
 	@Override
 	public boolean closeAccount(String number) throws IOException {
 		System.out.println("Close account #" + number);
-		return bank.closeAccount(number);
+		boolean success = bank.closeAccount(number);
+		if (success)
+			notifyClients(number);
+		return success;
 	}
 
 	@Override
