@@ -72,7 +72,7 @@ public class RemoteBankImpl extends UnicastRemoteObject implements RemoteBank {
 	public Account getAccount(String number) throws IOException {
 		Account ret = bank.getAccount(number);
 		if (ret != null)
-			return new RemoteAccountImpl(bank.getAccount(number));
+			return new RemoteAccountImpl(ret);
 		else
 			return null;
 	}
