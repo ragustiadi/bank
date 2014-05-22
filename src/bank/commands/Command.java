@@ -8,6 +8,5 @@ import java.io.ObjectOutputStream;
  * wird.
  */
 public interface Command {
-	public void execute(bank.Bank bank, ObjectOutputStream dataOut)
-			throws IOException;
+	public Object execute(bank.Bank bank) throws IOException;
 }

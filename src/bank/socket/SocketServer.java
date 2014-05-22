@@ -59,7 +59,7 @@ public class SocketServer implements Runnable {
 				if (cmd == null)
 					connection.close();
 				else
-					cmd.execute(bank, dataOut);
+					dataOut.writeObject(cmd.execute(bank));
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

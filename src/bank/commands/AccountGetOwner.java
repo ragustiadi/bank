@@ -15,13 +15,8 @@ public class AccountGetOwner implements Command, Serializable {
 	}
 
 	@Override
-	public void execute(Bank bank, ObjectOutputStream dataOut)
-			throws IOException {
+	public Object execute(Bank bank) throws IOException {
 		String owner = bank.getAccount(number).getOwner();
-		try {
-			dataOut.writeObject(owner);
-		} catch (Exception e) {
-			dataOut.writeObject(e);
-		}
+		return owner;
 	}
 }

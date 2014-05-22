@@ -10,13 +10,8 @@ import bank.Bank;
 public class GetAccountNumbers implements Command, Serializable {
 
 	@Override
-	public void execute(Bank bank, ObjectOutputStream dataOut)
-			throws IOException {
+	public Object execute(Bank bank) throws IOException {
 		Set<String> accounts = bank.getAccountNumbers();
-		try {
-			dataOut.writeObject(accounts);
-		} catch (Exception e) {
-			dataOut.writeObject(e);
-		}
+		return accounts;
 	}
 }

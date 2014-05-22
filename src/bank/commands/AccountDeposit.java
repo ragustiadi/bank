@@ -5,6 +5,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import bank.Bank;
+import bank.InactiveException;
 
 public class AccountDeposit implements Command, Serializable {
 
@@ -17,13 +18,12 @@ public class AccountDeposit implements Command, Serializable {
 	}
 
 	@Override
-	public void execute(Bank bank, ObjectOutputStream dataOut)
-			throws IOException {
+	public Object execute(Bank bank) throws IOException {
 		try {
 			bank.getAccount(number).deposit(amount);
-			dataOut.writeObject(null);
-		} catch (Exception e) {
-			dataOut.writeObject(e);
+		} catch (InactiveException | IllegalArgumentException e) {
+			return e;
 		}
+		return null;
 	}
 }

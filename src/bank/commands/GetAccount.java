@@ -12,16 +12,11 @@ public class GetAccount implements Command, Serializable {
 		number = n;
 	}
 
-	public void execute(bank.Bank bank, ObjectOutputStream dataOut)
-			throws IOException {
-		try {
+	public Object execute(bank.Bank bank) throws IOException {
 			bank.Account acc = bank.getAccount(number);
 			if (acc == null)
-				dataOut.writeObject(null);
+				return null;
 			else
-				dataOut.writeObject(acc.getNumber());
-		} catch (IOException e) {
-			dataOut.writeObject(e);
-		}
+				return acc.getNumber();
 	}
 }

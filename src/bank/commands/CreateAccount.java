@@ -14,12 +14,8 @@ public class CreateAccount implements Command, Serializable {
 		owner = o;
 	}
 
-	public void execute(Bank bank, ObjectOutputStream dataOut) {
-		try {
-			String number = bank.createAccount(owner);
-			dataOut.writeObject(number);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public Object execute(Bank bank) throws IOException {
+		String number = bank.createAccount(owner);
+		return number;
 	}
 }

@@ -15,13 +15,8 @@ public class AccountGetBalance implements Command, Serializable {
 	}
 
 	@Override
-	public void execute(Bank bank, ObjectOutputStream dataOut)
-			throws IOException {
+	public Object execute(Bank bank) throws IOException {
 		double balance = bank.getAccount(number).getBalance();
-		try {
-			dataOut.writeObject(balance);
-		} catch (Exception e) {
-			dataOut.writeObject(e);
-		}
+		return balance;
 	}
 }

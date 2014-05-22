@@ -5,6 +5,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import bank.Bank;
+import bank.InactiveException;
+import bank.OverdrawException;
 
 public class AccountWithdraw implements Command, Serializable {
 
@@ -17,13 +19,12 @@ public class AccountWithdraw implements Command, Serializable {
 	}
 
 	@Override
-	public void execute(Bank bank, ObjectOutputStream dataOut)
-			throws IOException {
+	public Object execute(Bank bank) throws IOException {
 		try {
 			bank.getAccount(number).withdraw(amount);
-			dataOut.writeObject(null);
-		} catch (Exception e) {
-			dataOut.writeObject(e);
+		} catch (OverdrawException | InactiveException | IllegalArgumentException e) {
+			return e;
 		}
+		return null;
 	}
 }
