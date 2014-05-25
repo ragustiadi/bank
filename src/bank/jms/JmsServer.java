@@ -163,9 +163,7 @@ public class JmsServer {
 			public double getBalance() throws IOException {
 				return account.getBalance();
 			}
-			
 		}
 	}
-
 }
 

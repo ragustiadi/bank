@@ -1,0 +1,148 @@
+# 1401022936186 Do not modify this line
+[25/May/2014:15:02:15 CEST] ERROR [B3142]: Unable to use JMQ_ETC_HOME ././../etc
+[25/May/2014:15:02:16 CEST] [B1002]: An existing property file for imqbroker was not found, no stored properties will be loaded
+[25/May/2014:15:02:16 CEST] 
+================================================================================
+Open Message Queue 4.5.2
+Oracle
+Version:  4.5.2  (Build 2-d)
+Compile:  Thu Dec  8 17:30:48 PST 2011
+
+Copyright (c) 2011, Oracle and/or its affiliates.  All rights reserved.
+================================================================================
+Java Runtime: 1.6.0_65 Apple Inc. /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+[25/May/2014:15:02:16 CEST]    IMQ_HOME=/Users/rt/Workspace/vesys/bank/lib/openMQ
+[25/May/2014:15:02:16 CEST] IMQ_VARHOME=/Users/rt/Workspace/vesys/bank/lib/openMQ/var
+[25/May/2014:15:02:16 CEST] Mac OS X 10.9.3 x86_64 192.168.0.105 (2 cpu) rt
+[25/May/2014:15:02:16 CEST] Java Heap Size: max=194176k, current=194176k
+[25/May/2014:15:02:16 CEST] Arguments: 
+[25/May/2014:15:02:16 CEST] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[25/May/2014:15:02:16 CEST] [B1060]: Loading persistent data...
+[25/May/2014:15:02:16 CEST] Using built-in file-based persistent store: /Users/rt/Workspace/vesys/bank/lib/openMQ/var/instances/imqbroker/
+[25/May/2014:15:02:17 CEST] WARNING Existing file: incompleteTxnStorehas older cookie version than current version. Current version = 1. Original file version = 0
+[25/May/2014:15:02:17 CEST] [B1041]: Cluster initialization successful.
+[25/May/2014:15:02:17 CEST] new transaction log enabled
+[25/May/2014:15:02:17 CEST] sync writes to disk = false
+[25/May/2014:15:02:17 CEST] logNonTransactedMsgSend = false
+[25/May/2014:15:02:17 CEST] logNonTransactedMsgAck = false
+[25/May/2014:15:02:17 CEST] [B1392]: Opening transaction log with file mode rw, maximum size 10,485,760 bytes
+[25/May/2014:15:02:17 CEST] [B1136]: Processing stored transactions
+[25/May/2014:15:02:17 CEST] [B1390]: Loading of transactions has been successfully completed  
+[25/May/2014:15:02:17 CEST] [B1013]: Auto Creation of Queues is enabled
+[25/May/2014:15:02:17 CEST] [B1144]: Creating Dead Message Queue
+[25/May/2014:15:02:17 CEST] [B1158]: Administrator has created destination mq.sys.dmq [Queue]
+[25/May/2014:15:02:19 CEST] [B1239]: Using platform MBean server
+[25/May/2014:15:02:19 CEST] JESMF classes not present - JESMF support will not be enabled.
+[25/May/2014:15:02:19 CEST] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://RTs-MacBook-Pro.local/stub/rO0ABXNyAC5qYXZheC5tYW5hZ2VtZW50LnJlbW90ZS5ybWkuUk1JU2VydmVySW1wbF9TdHViAAAAAAAAAAICAAB4cgAaamF2YS5ybWkuc2VydmVyLlJlbW90ZVN0dWLp/tzJi+FlGgIAAHhyABxqYXZhLnJtaS5zZXJ2ZXIuUmVtb3RlT2JqZWN002G0kQxhMx4DAAB4cHc4AAtVbmljYXN0UmVmMgAADTE5Mi4xNjguMC4xMDUAAM+VW1xxLTu2h6sAPZ9qAAABRjN5gRiAAQB4
+[25/May/2014:15:02:19 CEST] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[25/May/2014:15:02:19 CEST] [B1227]: Using file user repository for admin service connection authentication
+[25/May/2014:15:02:19 CEST] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[25/May/2014:15:02:19 CEST] [B1227]: Using file user repository for jms service connection authentication
+[25/May/2014:15:02:19 CEST] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:53144 ] with min threads 1 and max threads of 1 
+[25/May/2014:15:02:19 CEST] [B1228]: Cluster ping interval is 60 seconds
+[25/May/2014:15:02:19 CEST] [B1039]: Broker "imqbroker@192.168.0.105:7676" ready.
+[25/May/2014:15:02:39 CEST] WARNING [B2052]: Client protocol level 500 was not at the supported level of 450.  Broker is closing the connection to allow the client to reconnect at a  supported level.
+[25/May/2014:15:02:39 CEST] [B1066]:   Closing: ???@127.0.0.1:0->jms:0 because "[B0063]: Initialization Failure ". Count: service=0 broker=1
+[25/May/2014:15:02:39 CEST] [B1065]: Accepting: guest@127.0.0.1:53153->jms:53142. Count: service=1 broker=1
+[25/May/2014:15:02:39 CEST] [B1132]: Auto-creating destination Untitled_Destination_Object [Queue] 
+[25/May/2014:15:02:43 CEST] WARNING [B2052]: Client protocol level 500 was not at the supported level of 450.  Broker is closing the connection to allow the client to reconnect at a  supported level.
+[25/May/2014:15:02:43 CEST] [B1066]:   Closing: ???@127.0.0.1:0->jms:0 because "[B0063]: Initialization Failure ". Count: service=0 broker=1
+[25/May/2014:15:02:43 CEST] [B1065]: Accepting: guest@127.0.0.1:53157->jms:53142. Count: service=2 broker=2
+[25/May/2014:15:02:43 CEST] [B1160]: Connection 4486506840693085952 has created destination temporary_destination://queue/192.168.0.105/53157/1 [Queue]
+[25/May/2014:15:02:43 CEST] [B1132]: Auto-creating destination Untitled_Destination_Object [Topic] 
+[25/May/2014:15:02:47 CEST] imq.persist.file.minimizeWrites=false
+[25/May/2014:15:03:11 CEST] WARNING [B2052]: Client protocol level 500 was not at the supported level of 450.  Broker is closing the connection to allow the client to reconnect at a  supported level.
+[25/May/2014:15:03:11 CEST] [B1066]:   Closing: ???@127.0.0.1:0->jms:0 because "[B0063]: Initialization Failure ". Count: service=0 broker=2
+[25/May/2014:15:03:11 CEST] [B1065]: Accepting: guest@127.0.0.1:53163->jms:53142. Count: service=3 broker=3
+[25/May/2014:15:03:11 CEST] [B1160]: Connection 4486506840700175360 has created destination temporary_destination://queue/192.168.0.105/53163/1 [Queue]
+[25/May/2014:15:03:31 CEST] [B1159]: Destination temporary_destination://queue/192.168.0.105/53157/1 [Queue] has been destroyed
+[25/May/2014:15:03:31 CEST] WARNING [B2081]: Destroying destination temporary_destination://queue/192.168.0.105/53157/1 [Queue] with 1 active producers. Reason: at Close of Connection 4486506840693085952
+[25/May/2014:15:03:31 CEST] [B1066]:   Closing: guest@127.0.0.1:53157->jms:53142 because "[B0061]: Client exited without closing connections". Count: service=0 broker=2
+[25/May/2014:15:03:33 CEST] [B1159]: Destination temporary_destination://queue/192.168.0.105/53163/1 [Queue] has been destroyed
+[25/May/2014:15:03:33 CEST] WARNING [B2081]: Destroying destination temporary_destination://queue/192.168.0.105/53163/1 [Queue] with 1 active producers. Reason: at Close of Connection 4486506840700175360
+[25/May/2014:15:03:33 CEST] [B1066]:   Closing: guest@127.0.0.1:53163->jms:53142 because "[B0061]: Client exited without closing connections". Count: service=0 broker=1
+[25/May/2014:15:04:29 CEST] [B1066]:   Closing: guest@127.0.0.1:53153->jms:53142 because "[B0061]: Client exited without closing connections". Count: service=0 broker=0
+[25/May/2014:15:05:19 CEST] [B1047]: Shutting down broker...[brokerShutdownHook]
+[25/May/2014:15:05:19 CEST] [B1077]: Broadcast good-bye to all connections ...
+[25/May/2014:15:05:19 CEST] [B1078]: Flushing good-bye messages ...
+[25/May/2014:15:05:19 CEST] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[25/May/2014:15:05:19 CEST] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[25/May/2014:15:05:19 CEST] JMX Connector Server jmxrmi stopped successfully
+[25/May/2014:15:05:21 CEST] [B1048]: Shutdown of broker complete.
+[25/May/2014:15:36:29 CEST] ERROR [B3142]: Unable to use JMQ_ETC_HOME ././../etc
+[25/May/2014:15:36:29 CEST] 
+================================================================================
+Open Message Queue 4.5.2
+Oracle
+Version:  4.5.2  (Build 2-d)
+Compile:  Thu Dec  8 17:30:48 PST 2011
+
+Copyright (c) 2011, Oracle and/or its affiliates.  All rights reserved.
+================================================================================
+Java Runtime: 1.6.0_65 Apple Inc. /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+[25/May/2014:15:36:29 CEST]    IMQ_HOME=/Users/rt/Workspace/vesys/bank/lib/openMQ
+[25/May/2014:15:36:29 CEST] IMQ_VARHOME=/Users/rt/Workspace/vesys/bank/lib/openMQ/var
+[25/May/2014:15:36:29 CEST] Mac OS X 10.9.3 x86_64 192.168.0.105 (2 cpu) rt
+[25/May/2014:15:36:29 CEST] Java Heap Size: max=194176k, current=194176k
+[25/May/2014:15:36:29 CEST] Arguments: 
+[25/May/2014:15:36:30 CEST] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[25/May/2014:15:36:30 CEST] [B1060]: Loading persistent data...
+[25/May/2014:15:36:30 CEST] Using built-in file-based persistent store: /Users/rt/Workspace/vesys/bank/lib/openMQ/var/instances/imqbroker/
+[25/May/2014:15:36:30 CEST] [B1041]: Cluster initialization successful.
+[25/May/2014:15:36:30 CEST] new transaction log enabled
+[25/May/2014:15:36:30 CEST] sync writes to disk = false
+[25/May/2014:15:36:30 CEST] logNonTransactedMsgSend = false
+[25/May/2014:15:36:30 CEST] logNonTransactedMsgAck = false
+[25/May/2014:15:36:30 CEST] [B1392]: Opening transaction log with file mode rw, maximum size 10,485,760 bytes
+[25/May/2014:15:36:30 CEST] [B1270]: Processing messages from transaction log file...
+[25/May/2014:15:36:31 CEST] [B1013]: Auto Creation of Queues is enabled
+[25/May/2014:15:36:31 CEST] [B1159]: Destination Untitled_Destination_Object [Topic] has been destroyed
+[25/May/2014:15:36:31 CEST] [B1151]: Loading destination Untitled_Destination_Object [Topic] with 0 messages
+[25/May/2014:15:36:31 CEST] [B1152]: Loading of destination Untitled_Destination_Object [Topic] complete
+[25/May/2014:15:36:31 CEST] [B1387]: Purged 0 messages from destination Untitled_Destination_Object [Topic]
+[25/May/2014:15:36:31 CEST] imq.persist.file.minimizeWrites=false
+[25/May/2014:15:36:31 CEST] [B1159]: Destination Untitled_Destination_Object [Queue] has been destroyed
+[25/May/2014:15:36:31 CEST] [B1151]: Loading destination Untitled_Destination_Object [Queue] with 0 messages
+[25/May/2014:15:36:31 CEST] [B1152]: Loading of destination Untitled_Destination_Object [Queue] complete
+[25/May/2014:15:36:31 CEST] [B1387]: Purged 0 messages from destination Untitled_Destination_Object [Queue]
+[25/May/2014:15:36:31 CEST] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[25/May/2014:15:36:31 CEST] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[25/May/2014:15:36:31 CEST] [B1136]: Processing stored transactions
+[25/May/2014:15:36:31 CEST] [B1390]: Loading of transactions has been successfully completed  
+[25/May/2014:15:36:33 CEST] [B1239]: Using platform MBean server
+[25/May/2014:15:36:33 CEST] JESMF classes not present - JESMF support will not be enabled.
+[25/May/2014:15:36:33 CEST] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://RTs-MacBook-Pro.local/stub/rO0ABXNyAC5qYXZheC5tYW5hZ2VtZW50LnJlbW90ZS5ybWkuUk1JU2VydmVySW1wbF9TdHViAAAAAAAAAAICAAB4cgAaamF2YS5ybWkuc2VydmVyLlJlbW90ZVN0dWLp/tzJi+FlGgIAAHhyABxqYXZhLnJtaS5zZXJ2ZXIuUmVtb3RlT2JqZWN002G0kQxhMx4DAAB4cHc4AAtVbmljYXN0UmVmMgAADTE5Mi4xNjguMC4xMDUAANNbIPNRYD76GGsJnR6KAAABRjOY1+OAAQB4
+[25/May/2014:15:36:33 CEST] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[25/May/2014:15:36:33 CEST] [B1227]: Using file user repository for admin service connection authentication
+[25/May/2014:15:36:34 CEST] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[25/May/2014:15:36:34 CEST] [B1227]: Using file user repository for jms service connection authentication
+[25/May/2014:15:36:34 CEST] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:54111 ] with min threads 1 and max threads of 1 
+[25/May/2014:15:36:34 CEST] [B1228]: Cluster ping interval is 60 seconds
+[25/May/2014:15:36:34 CEST] [B1039]: Broker "imqbroker@192.168.0.105:7676" ready.
+[25/May/2014:15:36:56 CEST] WARNING [B2052]: Client protocol level 500 was not at the supported level of 450.  Broker is closing the connection to allow the client to reconnect at a  supported level.
+[25/May/2014:15:36:56 CEST] [B1066]:   Closing: ???@127.0.0.1:0->jms:0 because "[B0063]: Initialization Failure ". Count: service=0 broker=1
+[25/May/2014:15:36:56 CEST] [B1065]: Accepting: guest@127.0.0.1:54135->jms:54109. Count: service=1 broker=1
+[25/May/2014:15:36:56 CEST] [B1132]: Auto-creating destination Untitled_Destination_Object [Queue] 
+[25/May/2014:15:37:03 CEST] WARNING [B2052]: Client protocol level 500 was not at the supported level of 450.  Broker is closing the connection to allow the client to reconnect at a  supported level.
+[25/May/2014:15:37:03 CEST] [B1066]:   Closing: ???@127.0.0.1:0->jms:0 because "[B0063]: Initialization Failure ". Count: service=0 broker=1
+[25/May/2014:15:37:03 CEST] [B1065]: Accepting: guest@127.0.0.1:54157->jms:54109. Count: service=2 broker=2
+[25/May/2014:15:37:03 CEST] [B1160]: Connection 7197955291874135552 has created destination temporary_destination://queue/192.168.0.105/54157/1 [Queue]
+[25/May/2014:15:37:03 CEST] [B1132]: Auto-creating destination Untitled_Destination_Object [Topic] 
+[25/May/2014:15:37:33 CEST] WARNING [B2052]: Client protocol level 500 was not at the supported level of 450.  Broker is closing the connection to allow the client to reconnect at a  supported level.
+[25/May/2014:15:37:33 CEST] [B1066]:   Closing: ???@127.0.0.1:0->jms:0 because "[B0063]: Initialization Failure ". Count: service=0 broker=2
+[25/May/2014:15:37:33 CEST] [B1065]: Accepting: guest@127.0.0.1:54186->jms:54109. Count: service=3 broker=3
+[25/May/2014:15:37:33 CEST] [B1160]: Connection 7197955291881896192 has created destination temporary_destination://queue/192.168.0.105/54186/1 [Queue]
+[25/May/2014:15:37:51 CEST] [B1159]: Destination temporary_destination://queue/192.168.0.105/54186/1 [Queue] has been destroyed
+[25/May/2014:15:37:51 CEST] WARNING [B2081]: Destroying destination temporary_destination://queue/192.168.0.105/54186/1 [Queue] with 1 active producers. Reason: at Close of Connection 7197955291881896192
+[25/May/2014:15:37:51 CEST] [B1066]:   Closing: guest@127.0.0.1:54186->jms:54109 because "[B0061]: Client exited without closing connections". Count: service=0 broker=2
+[25/May/2014:15:37:52 CEST] [B1159]: Destination temporary_destination://queue/192.168.0.105/54157/1 [Queue] has been destroyed
+[25/May/2014:15:37:52 CEST] WARNING [B2081]: Destroying destination temporary_destination://queue/192.168.0.105/54157/1 [Queue] with 1 active producers. Reason: at Close of Connection 7197955291874135552
+[25/May/2014:15:37:52 CEST] [B1066]:   Closing: guest@127.0.0.1:54157->jms:54109 because "[B0061]: Client exited without closing connections". Count: service=0 broker=1
+[25/May/2014:15:37:54 CEST] [B1066]:   Closing: guest@127.0.0.1:54135->jms:54109 because "[B0061]: Client exited without closing connections". Count: service=0 broker=0
+[25/May/2014:15:38:02 CEST] [B1047]: Shutting down broker...[brokerShutdownHook]
+[25/May/2014:15:38:02 CEST] [B1077]: Broadcast good-bye to all connections ...
+[25/May/2014:15:38:02 CEST] [B1078]: Flushing good-bye messages ...
+[25/May/2014:15:38:02 CEST] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[25/May/2014:15:38:02 CEST] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[25/May/2014:15:38:02 CEST] JMX Connector Server jmxrmi stopped successfully
+[25/May/2014:15:38:03 CEST] [B1048]: Shutdown of broker complete.

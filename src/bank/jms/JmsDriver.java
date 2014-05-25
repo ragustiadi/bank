@@ -53,9 +53,7 @@ public class JmsDriver implements bank.BankDriver2 {
 		} catch (NamingException e) {
 			System.err.println("Cannot bind JMS-resources.");
 		}
-		
 		bank = new JmsBank();
-		
 	}
 
 	@Override
@@ -118,7 +116,7 @@ public class JmsDriver implements bank.BankDriver2 {
 		}
 		
 		private Object getResponse() {
-			Message message = responseConsumer.receive(5000);	// 1s timeout
+			Message message = responseConsumer.receive(5000);	// 5s timeout
 			if (message == null) 
 				System.err.println("Response timed out.");
 			Object ret = null;
@@ -190,5 +188,4 @@ public class JmsDriver implements bank.BankDriver2 {
 			}
 		}
 	}
-
 }

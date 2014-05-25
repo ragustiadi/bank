@@ -19,13 +19,10 @@ public class UpdateListener implements MessageListener {
 	
 	@Override
 	public void onMessage(Message arg0) {
-		if (arg0 instanceof TextMessage)
-			try {
-				handler.accountChanged(((TextMessage) arg0).getText());
-				System.out.println("Account number " + ((TextMessage) arg0).getText() + " changed");
-			} catch (IOException | JMSException e) {
-				System.err.println("Unable to get text from message.");
-			}
+		try {
+			handler.accountChanged(((TextMessage) arg0).getText());
+		} catch (IOException | JMSException e) {
+			System.err.println("Unable to get text from message.");
+		}
 	}
-
 }
