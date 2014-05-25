@@ -21,9 +21,8 @@ public class UpdateListener implements MessageListener {
 	public void onMessage(Message arg0) {
 		if (arg0 instanceof TextMessage)
 			try {
-				if (arg0.getJMSCorrelationID().equals("ALL"))
-					System.out.println("Account " + ((TextMessage) arg0).getText() + " changed");
-					handler.accountChanged(((TextMessage) arg0).getText());
+				handler.accountChanged(((TextMessage) arg0).getText());
+				System.out.println("Account number " + ((TextMessage) arg0).getText() + " changed");
 			} catch (IOException | JMSException e) {
 				System.err.println("Unable to get text from message.");
 			}

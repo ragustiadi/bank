@@ -5,18 +5,18 @@ import java.util.Set;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSConsumer;
+import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.jms.JMSProducer;
 import javax.jms.Message;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
-import javax.jms.TextMessage;
+import javax.jms.TemporaryQueue;
 import javax.jms.Topic;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import sun.security.provider.SHA;
 import bank.Account;
 import bank.Bank;
 import bank.InactiveException;
@@ -26,28 +26,32 @@ import bank.commands.*;
 public class JmsDriver implements bank.BankDriver2 {
 	
 	private bank.Bank bank;
-	private JMSProducer operations;
-	private JMSConsumer updates;
+	private JMSContext context;
+	private JMSProducer operationsProducer;
+	private JMSConsumer updatesConsumer;
+	private JMSConsumer responseConsumer;
 	private Queue queue;
 	private Topic topic;
-	private UpdateHandler handler;
-	private UpdateListener listener;
+	private TemporaryQueue response;
 
 	@Override
 	public void connect(String[] args) throws IOException {
 		try {
 			final Context jndiContext = new InitialContext();
 			final ConnectionFactory factory = (ConnectionFactory) jndiContext.lookup("ConnectionFactory");
+			context = factory.createContext();
+						
 			queue = (Queue) jndiContext.lookup("BANK");
 			topic = (Topic) jndiContext.lookup("BANK.LISTENER");
+			response = context.createTemporaryQueue();
 			
-			updates = factory.createContext().createConsumer(topic);
-			operations = factory.createContext().createProducer();
+			updatesConsumer = context.createConsumer(topic);
+			responseConsumer = context.createConsumer(response);
+			operationsProducer = context.createProducer().setJMSReplyTo(response);
 			
-			operations.setJMSCorrelationID(Long.toString(System.currentTimeMillis()));
-						
+			System.out.println("Client initialized.");
 		} catch (NamingException e) {
-			System.out.println("Cannot bind JMS-resources.");
+			System.err.println("Cannot bind JMS-resources.");
 		}
 		
 		bank = new JmsBank();
@@ -64,45 +68,32 @@ public class JmsDriver implements bank.BankDriver2 {
 
 	@Override
 	public void registerUpdateHandler(UpdateHandler handler) throws IOException {
-//		System.out.println(System.currentTimeMillis());
-		this.handler = handler;
-		listener = new UpdateListener(handler);
-//		System.out.println("Hash code set: " + Integer.toHexString(handler.hashCode()));
-//		operations.setJMSCorrelationID(Integer.toHexString(this.handler.hashCode()));
+		updatesConsumer.setMessageListener(new UpdateListener(handler));
 	}
 	
 	public class JmsBank implements bank.Bank {
 
 		@Override
 		public String createAccount(String owner) throws IOException {
-			System.out.println("create for " + owner);
-			operations.send(queue, new CreateAccount(owner));
-			String n = (String) getResponse();
-			System.out.println("number for new account is " + n);
-			return n;
-
+			operationsProducer.send(queue, new CreateAccount(owner));
+			return (String) getResponse();
 		}
 
 		@Override
 		public boolean closeAccount(String number) throws IOException {
-			System.out.println("close account " + number);
-			operations.send(queue, new CloseAccount(number));
+			operationsProducer.send(queue, new CloseAccount(number));
 			return (boolean) getResponse();
 		}
 
 		@Override
 		public Set<String> getAccountNumbers() throws IOException {
-			System.out.println("get all account numbers");
-			operations.send(queue, new GetAccountNumbers());
-			Set<String> resp = (Set<String>) getResponse();
-			System.out.println(resp);
-			return resp;
+			operationsProducer.send(queue, new GetAccountNumbers());
+			return (Set<String>) getResponse();
 		}
 
 		@Override
 		public Account getAccount(String number) throws IOException {
-			System.out.println("get account " + number);
-			operations.send(queue, new GetAccount(number));
+			operationsProducer.send(queue, new GetAccount(number));
 			String acc = (String) getResponse();
 			if (acc == null)
 				return null;
@@ -113,8 +104,7 @@ public class JmsDriver implements bank.BankDriver2 {
 		@Override
 		public void transfer(Account a, Account b, double amount)
 				throws IOException, IllegalArgumentException, OverdrawException, InactiveException {
-			System.out.println("transfer from " + a.getNumber() + " to " + b.getNumber() + " " + amount);
-			operations.send(queue, new Transfer(a.getNumber(), b.getNumber(), amount));
+			operationsProducer.send(queue, new Transfer(a.getNumber(), b.getNumber(), amount));
 			Object o = getResponse();
 			if (o != null)
 				if (o instanceof IOException)
@@ -128,17 +118,15 @@ public class JmsDriver implements bank.BankDriver2 {
 		}
 		
 		private Object getResponse() {
-			Message message = updates.receive();
+			Message message = responseConsumer.receive(5000);	// 1s timeout
+			if (message == null) 
+				System.err.println("Response timed out.");
 			Object ret = null;
 			try {
-				while (!message.getJMSCorrelationID().equals(operations.getJMSCorrelationID())) {
-					message = updates.receive();
-				}
 				ret = ((ObjectMessage)message).getObject();
 			} catch (JMSException e) {
-				System.out.println("No valid object.");
+				System.err.println("Not a valid object.");
 			}
-			System.out.println(ret);
 			return ret;
 		}
 		
@@ -152,29 +140,25 @@ public class JmsDriver implements bank.BankDriver2 {
 
 			@Override
 			public String getNumber() throws IOException {
-				System.out.println("get number for " + number);
 				return number;
 			}
 
 			@Override
 			public String getOwner() throws IOException {
-				System.out.println("get owner for " + number);
-				operations.send(queue, new AccountGetOwner(number));
+				operationsProducer.send(queue, new AccountGetOwner(number));
 				return (String) getResponse();
 			}
 
 			@Override
 			public boolean isActive() throws IOException {
-				System.out.println("is " + number + " active");
-				operations.send(queue, new AccountIsActive(number));
+				operationsProducer.send(queue, new AccountIsActive(number));
 				return (boolean) getResponse();
 			}
 
 			@Override
-			public void deposit(double amount) throws IOException, IllegalArgumentException, 
-					InactiveException {
-				System.out.println("deposit to " + number + " " + amount);
-				operations.send(queue, new AccountDeposit(number, amount));
+			public void deposit(double amount)
+					throws IOException, IllegalArgumentException, InactiveException {
+				operationsProducer.send(queue, new AccountDeposit(number, amount));
 				Object o = getResponse();
 				if (o != null) {
 					if (o instanceof IllegalArgumentException)
@@ -185,10 +169,9 @@ public class JmsDriver implements bank.BankDriver2 {
 			}
 
 			@Override
-			public void withdraw(double amount) throws IOException, IllegalArgumentException,
-					OverdrawException, InactiveException {
-				System.out.println("withdraw from " + number + " " + amount);
-				operations.send(queue, new AccountWithdraw(number, amount));
+			public void withdraw(double amount)
+					throws IOException, IllegalArgumentException, OverdrawException, InactiveException {
+				operationsProducer.send(queue, new AccountWithdraw(number, amount));
 				Object o = getResponse();
 				if (o != null) {
 					if (o instanceof IllegalArgumentException)
@@ -202,8 +185,7 @@ public class JmsDriver implements bank.BankDriver2 {
 
 			@Override
 			public double getBalance() throws IOException {
-				System.out.println("get balance of " + number);
-				operations.send(queue, new AccountGetBalance(number));
+				operationsProducer.send(queue, new AccountGetBalance(number));
 				return (double) getResponse();
 			}
 		}

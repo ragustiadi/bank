@@ -7,12 +7,8 @@
 	<classpathentry kind="lib" path="/System/Library/Java/Extensions/jaxrs-ri/api/javax.ws.rs-api-2.0.jar"/>
 	<classpathentry kind="lib" path="/System/Library/Java/Extensions/jersey-bundle-1.18.jar"/>
 	<classpathentry kind="lib" path="/System/Library/Java/Extensions/grizzly-http-all-2.3.11.jar"/>
-	<classpathentry kind="lib" path="jms.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://docs.oracle.com/javaee/6/api/javax/jms/package-summary.html"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="fscontext.jar"/>
-	<classpathentry kind="lib" path="imq.jar"/>
+	<classpathentry kind="lib" path="lib/jms/fscontext.jar"/>
+	<classpathentry kind="lib" path="lib/jms/imq.jar"/>
+	<classpathentry kind="lib" path="lib/jms/jms.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

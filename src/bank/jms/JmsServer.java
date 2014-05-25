@@ -13,7 +13,6 @@ import javax.jms.ObjectMessage;
 import javax.jms.Queue;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
-import javax.management.JMRuntimeException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -28,9 +27,9 @@ import bank.common.ServerBank;
 
 public class JmsServer {
 	
-	protected static Bank bank;
-	protected static JMSProducer updateTopic;
-	protected static JMSConsumer operationsQueue;
+	private static Bank bank;
+	private static JMSProducer updateProducer;
+	private static JMSConsumer operationsConsumer;
 	private static JMSContext context;
 	private static Queue queue;
 	private static Topic topic;
@@ -48,25 +47,21 @@ public class JmsServer {
 		System.out.println("Bank initialized.");
 		
 		context = factory.createContext();
-		updateTopic = factory.createContext().createProducer();
-		operationsQueue = factory.createContext().createConsumer(queue);
+		updateProducer = context.createProducer();
+		operationsConsumer = context.createConsumer(queue);
 		
 		System.out.println("Producer & consumer initialized.\nServer ready.");
 		
 		ObjectMessage message, response;
 		Command cmd;
-		String handlerID;
 		
 		while (true) {
-			message = (ObjectMessage) operationsQueue.receive();
+			message = (ObjectMessage) operationsConsumer.receive();
 			try {
-				handlerID = message.getJMSCorrelationID();
 				cmd = (Command) message.getObject();
 				Serializable o = (Serializable) cmd.execute(bank);
 				response = context.createObjectMessage(o);
-				updateTopic.setJMSCorrelationID(handlerID);
-				updateTopic.send(topic, response);
-				System.out.println("message sent to " + response.getJMSCorrelationID());
+				updateProducer.send(message.getJMSReplyTo(), response);
 			} catch (JMSException e) {
 				System.err.println("Not a valid command received.");
 			} catch (IOException e) {
@@ -108,8 +103,11 @@ public class JmsServer {
 
 		@Override
 		public Account getAccount(String number) throws IOException {
-			Account ret = bank.getAccount(number);
-			return ret;
+			Account acc = bank.getAccount(number);
+			if (acc != null)
+				return new JmsAccount(acc);
+			else
+				return null;
 		}
 
 		@Override
@@ -117,19 +115,55 @@ public class JmsServer {
 				IllegalArgumentException, OverdrawException, InactiveException {
 			System.out.println("Transfer " + amount + " from " + a.getNumber() + " to " + b.getNumber());
 			bank.transfer(a, b, amount);
-			sendUpdates(a.getNumber());
-			sendUpdates(b.getNumber());
 		}
 		
 		private void sendUpdates(String number) {
-			updateTopic.setJMSCorrelationID("ALL");
 			TextMessage m = context.createTextMessage(number);
-			updateTopic.send(topic, m);
-			try {
-				System.out.println(m.getJMSCorrelationID() + " clients notified");
-			} catch (JMSException e) {
-				System.err.println("asdf");
+			updateProducer.send(topic, m);
+		}
+		
+		class JmsAccount implements bank.Account {
+			
+			private Account account;
+			
+			public JmsAccount(Account acc) {
+				account = acc;
 			}
+
+			@Override
+			public String getNumber() throws IOException {
+				return account.getNumber();
+			}
+
+			@Override
+			public String getOwner() throws IOException {
+				return account.getOwner();
+			}
+
+			@Override
+			public boolean isActive() throws IOException {
+				return account.isActive();
+			}
+
+			@Override
+			public void deposit(double amount) throws IOException, IllegalArgumentException,
+					InactiveException {
+				account.deposit(amount);
+				sendUpdates(account.getNumber());
+			}
+
+			@Override
+			public void withdraw(double amount) throws IOException, IllegalArgumentException,
+					OverdrawException, InactiveException {
+				account.withdraw(amount);
+				sendUpdates(account.getNumber());
+			}
+
+			@Override
+			public double getBalance() throws IOException {
+				return account.getBalance();
+			}
+			
 		}
 	}
 
