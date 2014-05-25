@@ -7,13 +7,16 @@ import javax.jms.ConnectionFactory;
 import javax.jms.JMSConsumer;
 import javax.jms.JMSException;
 import javax.jms.JMSProducer;
+import javax.jms.Message;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
+import javax.jms.TextMessage;
 import javax.jms.Topic;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import sun.security.provider.SHA;
 import bank.Account;
 import bank.Bank;
 import bank.InactiveException;
@@ -28,6 +31,7 @@ public class JmsDriver implements bank.BankDriver2 {
 	private Queue queue;
 	private Topic topic;
 	private UpdateHandler handler;
+	private UpdateListener listener;
 
 	@Override
 	public void connect(String[] args) throws IOException {
@@ -39,12 +43,15 @@ public class JmsDriver implements bank.BankDriver2 {
 			
 			updates = factory.createContext().createConsumer(topic);
 			operations = factory.createContext().createProducer();
+			
+			operations.setJMSCorrelationID(Long.toString(System.currentTimeMillis()));
 						
 		} catch (NamingException e) {
 			System.out.println("Cannot bind JMS-resources.");
 		}
 		
 		bank = new JmsBank();
+		
 	}
 
 	@Override
@@ -57,9 +64,11 @@ public class JmsDriver implements bank.BankDriver2 {
 
 	@Override
 	public void registerUpdateHandler(UpdateHandler handler) throws IOException {
+//		System.out.println(System.currentTimeMillis());
 		this.handler = handler;
-		System.out.println("Hash code set: " + handler.hashCode());
-		operations.setJMSCorrelationID(Integer.toHexString(this.handler.hashCode()));
+		listener = new UpdateListener(handler);
+//		System.out.println("Hash code set: " + Integer.toHexString(handler.hashCode()));
+//		operations.setJMSCorrelationID(Integer.toHexString(this.handler.hashCode()));
 	}
 	
 	public class JmsBank implements bank.Bank {
@@ -119,10 +128,13 @@ public class JmsDriver implements bank.BankDriver2 {
 		}
 		
 		private Object getResponse() {
-			ObjectMessage message = (ObjectMessage) updates.receive();
+			Message message = updates.receive();
 			Object ret = null;
 			try {
-				ret = message.getObject();
+				while (!message.getJMSCorrelationID().equals(operations.getJMSCorrelationID())) {
+					message = updates.receive();
+				}
+				ret = ((ObjectMessage)message).getObject();
 			} catch (JMSException e) {
 				System.out.println("No valid object.");
 			}
