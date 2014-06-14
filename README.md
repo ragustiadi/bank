@@ -5,8 +5,7 @@ Bank project for vesys (distributed systems) module
 
 The goal of this project is to establish a connection between a client and a server using various techniques:
 
-- [x] Sockets
-RTiK/bank/src/bank/socket
+- [x] ([Sockets] (https://www.github.com/RTiK/bank/src/bank/socket))
 - [ ] HTTP
 - [x] SOAP
 RTiK/bank/src/bank/soap
