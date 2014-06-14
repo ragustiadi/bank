@@ -3,12 +3,12 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/System/Library/Java/Extensions/jersey-grizzly2-1.18.1.jar"/>
-	<classpathentry kind="lib" path="/System/Library/Java/Extensions/jaxrs-ri/api/javax.ws.rs-api-2.0.jar"/>
-	<classpathentry kind="lib" path="/System/Library/Java/Extensions/jersey-bundle-1.18.jar"/>
-	<classpathentry kind="lib" path="/System/Library/Java/Extensions/grizzly-http-all-2.3.11.jar"/>
 	<classpathentry kind="lib" path="lib/jms/fscontext.jar"/>
 	<classpathentry kind="lib" path="lib/jms/imq.jar"/>
 	<classpathentry kind="lib" path="lib/jms/jms.jar"/>
+	<classpathentry kind="lib" path="lib/rest/javax.ws.rs-api-2.0.jar"/>
+	<classpathentry kind="lib" path="lib/rest/jersey-bundle-1.18.1.jar"/>
+	<classpathentry kind="lib" path="lib/rest/jersey-grizzly2-1.18.1.jar"/>
+	<classpathentry kind="lib" path="lib/rest/grizzly-http-all-2.3.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
