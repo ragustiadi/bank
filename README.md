@@ -8,9 +8,9 @@ The goal of this project is to establish a connection between a client and a ser
 - [x] [Sockets](https://github.com/RTiK/bank/tree/master/src/bank/socket)
 - [ ] HTTP
 - [x] [SOAP](https://www.github.com/RTiK/bank/tree/master/src/bank/soap)
-- [x] [REST](https://wwww.github.com/RTiK/bank/tree/master/src/bank/rest)
-- [x] [RMI](https://www.github.com/RTiK/bank/tree/master/src/bank/rmi)
-- [x] [JMI](https://www.github.com/RTiK/bank/tree/master/src/bank/jmi)
+- [x] [REST](https://github.com/RTiK/bank/tree/master/src/bank/rest)
+- [x] [RMI](https://github.com/RTiK/bank/tree/master/src/bank/rmi)
+- [x] [JMS](https://github.com/RTiK/bank/tree/master/src/bank/jms)
 - [ ] WebSockets
 
 
