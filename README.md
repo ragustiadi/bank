@@ -5,13 +5,12 @@ Bank project for vesys (distributed systems) module
 
 The goal of this project is to establish a connection between a client and a server using various techniques:
 
-- [x] ([Sockets] (https://www.github.com/RTiK/bank/src/bank/socket))
+- [x] [Sockets](https://www.github.com/RTiK/bank/src/bank/socket)
 - [ ] HTTP
-- [x] SOAP
-RTiK/bank/src/bank/soap
-- [x] REST RTiK/bank/src/bank/rest
-- [x] RMI RTiK/bank/src/bank/rmi
-- [x] JMI RTiK/bank/src/bank/jmi
+- [x] [SOAP](https://www.github.com/RTiK/bank/src/bank/soap)
+- [x] [REST](https://wwww.github.com/RTiK/bank/src/bank/rest)
+- [x] [RMI](https://www.github.com/RTiK/bank/src/bank/rmi)
+- [x] [JMI](https://www.github.com/RTiK/bank/src/bank/jmi)
 - [ ] WebSockets
 
 
