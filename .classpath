@@ -10,5 +10,7 @@
 	<classpathentry kind="lib" path="lib/rest/jersey-bundle-1.18.1.jar"/>
 	<classpathentry kind="lib" path="lib/rest/jersey-grizzly2-1.18.1.jar"/>
 	<classpathentry kind="lib" path="lib/rest/grizzly-http-all-2.3.13.jar"/>
+	<classpathentry kind="lib" path="lib/Websockets/tyrus-standalone-client-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/Websockets/tyrus-server-1.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
