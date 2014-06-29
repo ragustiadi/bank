@@ -22,7 +22,7 @@ public class RestServer {
 		System.out.println("Grizzly started on URL " + baseUri);
 
 		System.in.read();
-		httpServer.shutdown();
+		httpServer.stop();
 	}
 
 }
