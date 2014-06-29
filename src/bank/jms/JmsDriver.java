@@ -45,8 +45,13 @@ public class JmsDriver implements bank.BankDriver2 {
 			topic = (Topic) jndiContext.lookup("BANK.LISTENER");
 			response = context.createTemporaryQueue();
 			
-			updatesConsumer = context.createConsumer(topic);
 			responseConsumer = context.createConsumer(response);
+			
+			// context darf nicht die gleiche Instanz haben, da er singlethreaded ist und die Updates asynchron kommen
+			context = factory.createContext();
+			updatesConsumer = context.createConsumer(topic);
+			
+			context = factory.createContext();
 			operationsProducer = context.createProducer().setJMSReplyTo(response);
 			
 			System.out.println("Client initialized.");
@@ -57,7 +62,9 @@ public class JmsDriver implements bank.BankDriver2 {
 	}
 
 	@Override
-	public void disconnect() throws IOException { }
+	public void disconnect() throws IOException {
+		context.close();
+	}
 
 	@Override
 	public Bank getBank() {
@@ -66,7 +73,7 @@ public class JmsDriver implements bank.BankDriver2 {
 
 	@Override
 	public void registerUpdateHandler(UpdateHandler handler) throws IOException {
-		updatesConsumer.setMessageListener(new UpdateListener(handler));
+		updatesConsumer.setMessageListener(new UpdateListener(handler));	// nur 1 Listener des GUIs kann registriert werden
 	}
 	
 	public class JmsBank implements bank.Bank {
@@ -106,13 +113,13 @@ public class JmsDriver implements bank.BankDriver2 {
 			Object o = getResponse();
 			if (o != null)
 				if (o instanceof IOException)
-					throw new IOException();
+					throw new IOException(((IOException) o).getMessage());
 				else if (o instanceof IllegalArgumentException)
-					throw new IllegalArgumentException();
+					throw new IllegalArgumentException(((IllegalArgumentException) o).getMessage());
 				else if (o instanceof OverdrawException)
-					throw new OverdrawException();
+					throw new OverdrawException(((OverdrawException) o).getLocalizedMessage());
 				else if (o instanceof InactiveException)
-					throw new InactiveException();
+					throw new InactiveException(((InactiveException) o).getMessage());
 		}
 		
 		private Object getResponse() {
@@ -137,7 +144,7 @@ public class JmsDriver implements bank.BankDriver2 {
 			}
 
 			@Override
-			public String getNumber() throws IOException {
+			public String getNumber() {
 				return number;
 			}
 

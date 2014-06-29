@@ -46,7 +46,7 @@ public class JmsServer {
 		
 		System.out.println("Bank initialized.");
 		
-		context = factory.createContext();
+		context = factory.createContext();	// imqbrokerd must be runnning
 		updateProducer = context.createProducer();
 		operationsConsumer = context.createConsumer(queue);
 		
@@ -71,7 +71,7 @@ public class JmsServer {
 		
 	}
 	
-	static class JmsBank implements Bank {
+	public static class JmsBank implements Bank {
 		
 		private Bank bank;
 		
@@ -83,7 +83,8 @@ public class JmsServer {
 		public String createAccount(String owner) throws IOException {
 			System.out.println("Create account for " + owner);
 			String accNumber = bank.createAccount(owner);
-			sendUpdates(accNumber);
+			if (accNumber != null)
+				sendUpdates(accNumber);
 			return accNumber;
 		}
 
@@ -91,7 +92,8 @@ public class JmsServer {
 		public boolean closeAccount(String number) throws IOException {
 			System.out.println("Close account #" + number);
 			boolean success = bank.closeAccount(number);
-			sendUpdates(number);
+			if (success)
+				sendUpdates(number);
 			return success;
 		}
 
@@ -117,7 +119,7 @@ public class JmsServer {
 			bank.transfer(a, b, amount);
 		}
 		
-		private void sendUpdates(String number) {
+		public void sendUpdates(String number) {
 			TextMessage m = context.createTextMessage(number);
 			updateProducer.send(topic, m);
 		}
