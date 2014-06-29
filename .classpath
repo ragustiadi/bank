@@ -2,15 +2,23 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="res"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/jms/fscontext.jar"/>
-	<classpathentry kind="lib" path="lib/jms/imq.jar"/>
-	<classpathentry kind="lib" path="lib/jms/jms.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/Java SE 7 [1.7.0_40]"/>
+	<classpathentry kind="lib" path="lib/Websockets/javax.websocket-api-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/Websockets/grizzly-framework-2.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/Websockets/grizzly-http-2.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/Websockets/grizzly-http-server-2.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/Websockets/grizzly-rcm-2.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/Websockets/tyrus-client-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/Websockets/tyrus-container-grizzly-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/Websockets/tyrus-core-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/Websockets/tyrus-server-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/Websockets/tyrus-spi-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/Websockets/tyrus-websocket-core-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/rest/javax.ws.rs-api-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/rest/jersey-bundle-1.18.1.jar"/>
 	<classpathentry kind="lib" path="lib/rest/jersey-grizzly2-1.18.1.jar"/>
-	<classpathentry kind="lib" path="lib/rest/grizzly-http-all-2.3.13.jar"/>
-	<classpathentry kind="lib" path="lib/Websockets/tyrus-standalone-client-1.7.jar"/>
-	<classpathentry kind="lib" path="lib/Websockets/tyrus-server-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/jms/fscontext.jar"/>
+	<classpathentry kind="lib" path="lib/jms/imq.jar"/>
+	<classpathentry kind="lib" path="lib/jms/jms.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

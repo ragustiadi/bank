@@ -1,0 +1,2 @@
+After checkout from git your may get a bad interpreter exception.
+The cause is windows ^M line endongs. The solution is just redownloading openMQ (4.5.2) and replace the files in this folder.
