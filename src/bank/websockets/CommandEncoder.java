@@ -11,7 +11,7 @@ import javax.websocket.EndpointConfig;
 
 
 public class CommandEncoder implements Encoder.Binary<Object> {
-
+	
 	@Override
 	public void destroy() { }
 

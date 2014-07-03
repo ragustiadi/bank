@@ -2,12 +2,17 @@ package bank.websockets;
 
 import java.io.Serializable;
 
-public class Response implements Serializable {
+/**
+ * This class wraps an object sent from the server without distinguishing its kind.
+ * @author rt
+ *
+ */
+public class WebsocketsResponse implements Serializable {
 	
 	private Object object;
 	private boolean notification;
 	
-	public Response(Object obj) {
+	public WebsocketsResponse(Object obj) {
 		object = obj;
 	}
 	

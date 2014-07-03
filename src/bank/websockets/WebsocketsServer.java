@@ -33,7 +33,7 @@ public class WebsocketsServer {
 			@Override
 			public void sendUpdates(String number) {
 //				System.out.println("update " + sessions.size() + " listeners");
-				Response response = new Response(number);
+				WebsocketsResponse response = new WebsocketsResponse(number);
 				response.setNotification(true);
 				try {
 					for (Session s : sessions)
@@ -49,7 +49,7 @@ public class WebsocketsServer {
 		System.out.println("Server configured");
 		try {
 			server.start();
-			System.out.println("Server started");
+			System.out.println("Server started.\nHit any key to stop.");
 		} catch (DeploymentException e) {
 			e.printStackTrace();
 			System.err.println("Server could not start");
@@ -74,7 +74,7 @@ public class WebsocketsServer {
 	public Object onMessage(Object message, Session session) throws IOException {
 		Command cmd = (Command) message;
 		Object ret = cmd.execute(bank);
-		return new Response(ret);
+		return new WebsocketsResponse(ret);
 	}
 
 	@OnError

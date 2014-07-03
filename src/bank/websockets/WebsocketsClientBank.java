@@ -50,7 +50,7 @@ public class WebsocketsClientBank implements bank.Bank {
 		
 		@OnMessage
 		public void onMessage(Object message) {
-			Response response = (Response) message;
+			WebsocketsResponse response = (WebsocketsResponse) message;
 			try {
 				if (response.isNotification())
 					handler.accountChanged((String) response.getObject());

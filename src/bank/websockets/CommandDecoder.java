@@ -10,7 +10,7 @@ import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 
 public class CommandDecoder implements Decoder.Binary<Object> {
-
+	
 	@Override
 	public void destroy() { }
 
