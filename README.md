@@ -11,7 +11,7 @@ The goal of this project is to establish a connection between a client and a ser
 - [x] [REST](https://github.com/RTiK/bank/tree/master/src/bank/rest)
 - [x] [RMI](https://github.com/RTiK/bank/tree/master/src/bank/rmi)
 - [x] [JMS](https://github.com/RTiK/bank/tree/master/src/bank/jms)
-- [ ] WebSockets
+- [x] [WebSockets](https://github.com/RTiK/bank/tree/master/src/bank/websockets)
 
 
 To start the connection the server must be started first. The client class must be then configured to use the coresponding driver by setting the path in the delpoyment arguments.
